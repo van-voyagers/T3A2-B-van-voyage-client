@@ -1,7 +1,7 @@
 # T3A2 - PART B Client
 
 <div align="left">
-  <img src="./src/assets/van-voyage-readme-image.png" width="200"><br>
+  <img src="./src/assets/icons/van-voyage-readme-image.png" width="200"><br>
 </div>
 
 <br>
