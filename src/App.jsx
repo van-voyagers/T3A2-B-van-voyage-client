@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import './App.css';
-import About from './pages/About';
-import Account from './pages/Account';
-import Contact from './pages/Contact';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import Vans from './pages/Vans';
+import "./App.css";
+import About from "./pages/About";
+import Account from "./pages/Account";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Vans from "./pages/Vans";
 
 function App() {
   return (
@@ -25,8 +25,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
