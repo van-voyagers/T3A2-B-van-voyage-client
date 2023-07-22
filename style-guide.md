@@ -28,9 +28,8 @@ Examples of how to use the colors in this project:
 
 The following fonts are used in the project:
 
-- Headings: `Roboto Mono`
+- Headings: `Roboto`
 - Body: `Roboto Mono`
-- Buttons: `Roboto Mono`
 
 Examples of how to use the fonts in this project:
 
