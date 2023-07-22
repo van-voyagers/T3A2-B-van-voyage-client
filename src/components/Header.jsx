@@ -16,16 +16,16 @@ function Header() {
         <img
           src={VanVoyageHeaderLogo}
           alt="Van Voyage Logo"
-          className="h-10 sm:h-14"
+          className="h-10 sm:h-10 md:h-12 lg:h-14"
         />
       </Link>
 
-      <nav className="hidden sm:flex">
-        <ul className="flex items-center space-x-10 pr-6 font-roboto font-extralight text-uppercase text-voyage-white">
+      <nav className="hidden md:flex">
+        <ul className="flex items-center md:space-x-4 lg:space-x-10 pr-6 font-roboto text-sm md:text-sm lg:text-lg font-extralight text-voyage-white">
           <li className={getNavLinkClass("/")}>
             <NavLink
               to="/"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-normal"
             >
               HOME
             </NavLink>
@@ -33,7 +33,7 @@ function Header() {
           <li className={getNavLinkClass("/about")}>
             <NavLink
               to="/about"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-normal"
             >
               ABOUT
             </NavLink>
@@ -41,7 +41,7 @@ function Header() {
           <li className={getNavLinkClass("/vans")}>
             <NavLink
               to="/vans"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-medium"
             >
               VANS
             </NavLink>
@@ -49,7 +49,7 @@ function Header() {
           <li className={getNavLinkClass("/contact")}>
             <NavLink
               to="/contact"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-normal"
             >
               CONTACT
             </NavLink>
@@ -57,7 +57,7 @@ function Header() {
           <li className={getNavLinkClass("/login")}>
             <NavLink
               to="/login"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-normal"
             >
               LOGIN
             </NavLink>
@@ -65,7 +65,7 @@ function Header() {
           <li className={getNavLinkClass("/signup")}>
             <NavLink
               to="/signup"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-300 hover:font-medium"
             >
               SIGN UP
             </NavLink>
@@ -73,7 +73,7 @@ function Header() {
           <li className="border border-voyage-white font-light px-2 py-1">
             <NavLink
               to="/vans"
-              className="transition-all duration-500 hover:font-medium"
+              className="transition-all duration-500 hover:font-normal"
             >
               BOOK NOW
             </NavLink>
@@ -82,7 +82,7 @@ function Header() {
       </nav>
 
       {/* Mobile Menu */}
-      <div className="sm:hidden">
+      <div className="md:hidden">
         <MobileMenu />
       </div>
     </header>

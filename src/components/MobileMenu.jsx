@@ -29,7 +29,7 @@ function MobileMenu() {
         }`}
       >
         {/* This div contains a button that can close the mobile menu and the list of links in the mobile menu. */}
-        <div className="absolute top-2 w-full p-4 flex shadow-lg justify-between items-center">
+        <div className="absolute top-2 w-full p-4 flex shadow-md justify-between items-center">
           <img
             src={VanVoyageHeaderLogo}
             alt="Van Voyage Logo"
@@ -100,8 +100,3 @@ function MobileMenu() {
 }
 
 export default MobileMenu;
-
-
-
-
-
