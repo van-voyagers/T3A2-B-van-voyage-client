@@ -12,7 +12,7 @@ function Header() {
   return (
     <header className="bg-voyage-green shadow-2xl p-4 flex justify-between items-center">
       <Link to="/">
-        <img src={VanVoyageHeaderLogo} alt="Van Voyage Logo" className="h-16" />
+        <img src={VanVoyageHeaderLogo} alt="Van Voyage Logo" className="h-14" />
       </Link>
 
       <nav>
