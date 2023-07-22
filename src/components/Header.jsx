@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import VanVoyageHeaderLogo from "../assets/icons/van-voyage-header-logo.png";
+import MobileMenu from "./MobileMenu";
 
 function Header() {
   const location = useLocation();
@@ -10,17 +11,21 @@ function Header() {
   };
 
   return (
-    <header className="bg-voyage-green shadow-2xl p-4 flex justify-between items-center">
+    <header className="bg-voyage-green shadow-xl p-4 flex justify-between items-center">
       <Link to="/">
-        <img src={VanVoyageHeaderLogo} alt="Van Voyage Logo" className="h-14" />
+        <img
+          src={VanVoyageHeaderLogo}
+          alt="Van Voyage Logo"
+          className="h-10 sm:h-14"
+        />
       </Link>
 
-      <nav>
+      <nav className="hidden sm:flex">
         <ul className="flex items-center space-x-10 pr-6 font-roboto font-extralight text-uppercase text-voyage-white">
           <li className={getNavLinkClass("/")}>
             <NavLink
               to="/"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               HOME
             </NavLink>
@@ -28,7 +33,7 @@ function Header() {
           <li className={getNavLinkClass("/about")}>
             <NavLink
               to="/about"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               ABOUT
             </NavLink>
@@ -36,7 +41,7 @@ function Header() {
           <li className={getNavLinkClass("/vans")}>
             <NavLink
               to="/vans"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               VANS
             </NavLink>
@@ -44,7 +49,7 @@ function Header() {
           <li className={getNavLinkClass("/contact")}>
             <NavLink
               to="/contact"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               CONTACT
             </NavLink>
@@ -52,7 +57,7 @@ function Header() {
           <li className={getNavLinkClass("/login")}>
             <NavLink
               to="/login"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               LOGIN
             </NavLink>
@@ -60,7 +65,7 @@ function Header() {
           <li className={getNavLinkClass("/signup")}>
             <NavLink
               to="/signup"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               SIGN UP
             </NavLink>
@@ -68,13 +73,18 @@ function Header() {
           <li className="border border-voyage-white font-light px-2 py-1">
             <NavLink
               to="/vans"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-500 hover:font-medium"
             >
               BOOK NOW
             </NavLink>
           </li>
         </ul>
       </nav>
+
+      {/* Mobile Menu */}
+      <div className="sm:hidden">
+        <MobileMenu />
+      </div>
     </header>
   );
 }
