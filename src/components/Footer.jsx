@@ -7,7 +7,7 @@ function Footer() {
       <img
         src={VanVoyageFooterLogo}
         alt="Van Voyage Footer Logo"
-        className="h-14 sm:h-20 md:h-32 lg:h-40"
+        className="h-14 sm:h-20 md:h-32 lg:h-36"
       />
       <p className="text-voyage-white font-roboto font-extralight text-[8px] text-center mt-2">
         ©2023 VAN VOYAGE

@@ -16,6 +16,10 @@ Here are the primary colors used in the project:
 - Voyage Black: `#2D2D2D`
 - Voyage White: `#F8F8F8`
 
+<br>
+
+These have been set up as custom colors in the Tailwind config file.
+
 Examples of how to use the colors in this project:
 
 ```html
@@ -49,10 +53,16 @@ Examples of how to use the fonts in this project:
 
 ## Border Radius
 
-Use the following border-radius values:
+Use the following border-radius value:
 
-- Small Elements: `8px`
-- Large Elements: `10px`
+- Elements: `rounded`
+
+
+## Shadows
+
+Use the following shadow value:
+
+- Forms etc: `shadow-lg`
 
 
 
