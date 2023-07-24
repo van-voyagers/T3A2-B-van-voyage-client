@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
@@ -11,9 +10,10 @@ function Vans() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <VansSelect onVanSelect={setSelectedVan} />
-      {selectedVan && <p>Van: {selectedVan.name}</p>}
-      <p className="text-center mt-20 text-xl flex-grow">Vans</p>
+      <div className="text-center mt-20 text-xl flex-grow">
+      <VansSelect className="text-center mt-20 text-xl font-roboto font-normal w-fit"onVanSelect={setSelectedVan} />
+      {selectedVan && <p className="text-center mt-20 text-xl font-roboto font-black">{selectedVan.vanName}</p>}
+      </div>
       {selectedVan && <BookingCalendar vanID={selectedVan._id}/>}
       <Footer />
     </div>

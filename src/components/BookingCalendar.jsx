@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import axios from 'axios'
@@ -46,7 +46,7 @@ function BookingCalendar({ vanID }) {
   }
 
   return (
-    <div className="flex flex-col items-center px-5 space-y-4 text-voyage-black">
+    <div className="flex flex-col items-center px-5 space-y-4 text-voyage-black font-roboto font-normal">
       <h2>Booking Calendar</h2>
       <Calendar
         onChange={handleDateChange}
@@ -57,7 +57,7 @@ function BookingCalendar({ vanID }) {
           );
         }}
       />
-      <div>
+      <div className="box-border p-4 font-roboto font-normal">
         <p>Start Date: {selectedStartDate?.toLocaleDateString()}</p>
         <p>End Date: {selectedEndDate?.toLocaleDateString()}</p>
       </div>
