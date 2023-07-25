@@ -37,7 +37,7 @@
   margin: 0;
   border: 0;
   outline: none;
-  content: "\274c"; /* use the hex value here... */
+  border-radius: 4em;
 }
 
 .react-calendar button:enabled:hover {
@@ -84,7 +84,7 @@
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: #2D2D2D;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -153,7 +153,10 @@
   color: #2D2D2D;
 }
 
-.react-calendar__tile--active, 
-.react-calendar__tile--now {
+.react-calendar__tile--active {
     background-color: #36413Fe0 !important;
+}
+
+.react-calendar__tile--now {
+  background-color: #f8f8f8 !important;
 }

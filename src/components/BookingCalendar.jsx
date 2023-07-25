@@ -10,7 +10,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
   const [bookedDates, setBookedDates] = useState([])
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     axios
       .get(`http://localhost:3000/bookings/van/${vanID}`)
@@ -40,13 +40,19 @@ function BookingCalendar({ vanID, pricePerDay }) {
   const handleDateChange = (date) => {
     if(!selectedStartDate) {
       setSelectedStartDate(date);
-    } else if (!selectedEndDate) {
+    } else if (!selectedEndDate && date > selectedStartDate) {
       setSelectedEndDate(date)
     } else {
       setSelectedStartDate(null)
       setSelectedEndDate(null)
     }
   }
+
+  useEffect(() => {
+    if(selectedStartDate){
+      document.getElementById('end-date-input').min = selectedStartDate.toISOString().substring(0,10);
+    }
+  }, [selectedStartDate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -97,28 +103,39 @@ function BookingCalendar({ vanID, pricePerDay }) {
           {' '}
           {/* input fields for start and end dates */}
           <input
-            type={selectedStartDate ? "date" : "text"}
-            value={selectedStartDate ? selectedStartDate.toISOString().substring(0, 10) : ""}
+            type={selectedStartDate ? 'date' : 'text'}
+            value={
+              selectedStartDate
+                ? selectedStartDate.toISOString().substring(0, 10)
+                : ''
+            }
             onChange={(e) => setSelectedStartDate(new Date(e.target.value))}
             placeholder="From date..."
-            onFocus={(e) => e.target.type = "date"}
-            onBlur={(e) => e.target.type = selectedStartDate ? "date" : "text"}
+            onFocus={(e) => (e.target.type = 'date')}
+            onBlur={(e) =>
+              (e.target.type = selectedStartDate ? 'date' : 'text')
+            }
             className="font-roboto font-normal"
           />
           <input
-            type={selectedEndDate ? "date" : "text"}
-            value={selectedEndDate ? selectedEndDate.toISOString().substring(0, 10) : ""}
+            id="end-date-input"
+            type={selectedEndDate ? 'date' : 'text'}
+            value={
+              selectedEndDate
+                ? selectedEndDate.toISOString().substring(0, 10)
+                : ''
+            }
             onChange={(e) => setSelectedEndDate(new Date(e.target.value))}
             placeholder="To date..."
-            onFocus={(e) => e.target.type = "date"}
-            onBlur={(e) => e.target.type = selectedEndDate ? "date" : "text"}
+            onFocus={(e) => (e.target.type = 'date')}
+            onBlur={(e) => (e.target.type = selectedEndDate ? 'date' : 'text')}
             min={selectedStartDate?.toISOString().substring(0, 10)}
             className="font-roboto font-normal"
           />
         </div>
         <Calendar
           onChange={handleDateChange}
-          defaultActiveStartDate = {new Date()}
+          defaultActiveStartDate={new Date()}
           value={
             selectedStartDate && selectedEndDate
               ? [selectedStartDate, selectedEndDate]
@@ -134,7 +151,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
         />
         <button
           type="submit"
-          disabled={!selectedStartDate || !selectedEndDate}  // button is disabled if either date is not selected
+          disabled={!selectedStartDate || !selectedEndDate} // button is disabled if either date is not selected
           className="bg-voyage-green text-white font-roboto font-light rounded px-4 py-2"
         >
           Submit
