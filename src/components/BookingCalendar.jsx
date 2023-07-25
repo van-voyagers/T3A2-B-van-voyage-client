@@ -98,7 +98,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
         className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
       >
         <h2>Booking Calendar</h2>
-        <p className="font-roboto font-normal">From ${pricePerDay} AUD / day</p>
+        <p className="font-roboto font-normal">From <span className="text-lg font-roboto font-black ">${pricePerDay}</span> AUD / day</p>
         <div className="flex space-x-4 font-roboto font-normal">
           {' '}
           {/* input fields for start and end dates */}

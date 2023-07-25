@@ -21,7 +21,7 @@ function Vans() {
           </p>
         )}
       </div>
-      {selectedVan && <BookingCalendar vanID={selectedVan._id} />}
+      {selectedVan && <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} />}
       <Footer />
     </div>
   )
