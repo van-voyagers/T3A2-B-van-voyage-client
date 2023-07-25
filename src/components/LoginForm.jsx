@@ -13,6 +13,9 @@ function LoginForm() {
     try {
       const response = await axios.post('http://localhost:3000/users/sign-in', { email, password });
 
+      // Save token to local storage
+      localStorage.setItem('token', response.data.token);
+
       // Handle successful submission here
       alert("Successfully signed in!");
       navigate('/account');
