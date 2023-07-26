@@ -6,6 +6,7 @@ import HomePage2 from "../assets/images/home-page-2.png";
 import HomePage3 from "../assets/images/home-page-3.png";
 import HomePage4 from "../assets/images/home-page-4.png";
 import TravelWithUs from "../components/TravelWithUs";
+import HireRates from "../components/HireRates";
 
 function Home() {
   return (
@@ -17,10 +18,12 @@ function Home() {
       </div>
 
       <TravelWithUs />
+      
 
       <div>
         <img src={HomePage2} alt="Home Page" className="w-full h-auto" />
       </div>
+      <HireRates />      
       <div>
         <img src={HomePage3} alt="Home Page" className="w-full h-auto" />
       </div>
