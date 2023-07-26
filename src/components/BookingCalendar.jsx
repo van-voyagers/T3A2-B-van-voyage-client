@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Calendar from 'react-calendar'
 import '../Calendar.css'
 import axios from 'axios'
+import VanDescriptions from './VanDescriptions'
 
 function BookingCalendar({ vanID, pricePerDay }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
@@ -65,7 +66,13 @@ function BookingCalendar({ vanID, pricePerDay }) {
         const diffDays = Math.round(
           Math.abs((selectedEndDate - selectedStartDate) / oneDay)
         )
-        setTotalPrice(diffDays * pricePerDay)
+        if (diffDays > 1) { // If date range is more than one day
+          setTotalPrice(diffDays * pricePerDay)
+        } else {
+          setTotalPrice(null) // Force to null if date range is one day or less
+        }
+      } else {
+        setTotalPrice(null) // Force to null if no date range is selected
       }
     }
     calculateTotalPrice()
@@ -109,7 +116,9 @@ function BookingCalendar({ vanID, pricePerDay }) {
   }
 
   return (
-    <div className="flex flex-col items-end px-5 space-y-4 text-voyage-black font-roboto font-normal border border-voyage-white mt-8 p-16 pr-32">
+    <div className="flex justify-around text-voyage-black font-roboto font-normal border border-voyage-white mt-8 p-16 text-left">
+    <VanDescriptions />
+    <div className="flex-col items-end px-5 space-y-4 ">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
@@ -193,6 +202,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
           BOOK NOW
         </button>
       </form>
+    </div>
     </div>
   )
 }

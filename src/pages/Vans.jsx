@@ -4,10 +4,13 @@ import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
 import VansSelect from '../components/VansSelect'
 import MobileVanSelect from '../components/MobileVanSelect'
+import VanDescriptions from '../components/VanDescriptions'
+//import { VanContext } from '../contexts/VanContext'
 
 function Vans() {
   const [selectedVan, setSelectedVan] = useState(null)
   const [vans, setVans] = useState([])
+  //const { vans, setVans, selectedVan, setSelectedVan } = useContext(VanContext)
   //const handleVanSelect = (van) => {
   //  setSelectedVans((prev) => [...prev, van])
   //}
@@ -34,8 +37,11 @@ function Vans() {
           <div key={van._id} className="mb-8 hidden md:block"> {/* hidden md:block will show this on medium and larger screens */}
             <p className="text-center mt-20 text-xl font-roboto font-black">
               {van.vanName}
+              
             </p>
+            
             <BookingCalendar vanID={van._id} pricePerDay={van.pricePerDay} />
+            
           </div>
         ))}
       </div>
