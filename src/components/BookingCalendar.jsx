@@ -8,6 +8,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
   const [selectedEndDate, setSelectedEndDate] = useState(null)
   const [bookedDates, setBookedDates] = useState([])
+  const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -38,8 +39,8 @@ function BookingCalendar({ vanID, pricePerDay }) {
   }, [vanID])
 
   const handleDateChange = (date) => {
-    if(!selectedStartDate) {
-      setSelectedStartDate(date);
+    if (!selectedStartDate) {
+      setSelectedStartDate(date)
     } else if (!selectedEndDate && date > selectedStartDate) {
       setSelectedEndDate(date)
     } else {
@@ -49,10 +50,26 @@ function BookingCalendar({ vanID, pricePerDay }) {
   }
 
   useEffect(() => {
-    if(selectedStartDate){
-      document.getElementById('end-date-input').min = selectedStartDate.toISOString().substring(0,10);
+    if (selectedStartDate) {
+      document.getElementById('end-date-input').min = selectedStartDate
+        .toISOString()
+        .substring(0, 10)
     }
-  }, [selectedStartDate]);
+  }, [selectedStartDate])
+
+  useEffect(() => {
+    // This function calculates the total price on the client side when the selected start and end dates change
+    function calculateTotalPrice() {
+      if (selectedStartDate && selectedEndDate) {
+        const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
+        const diffDays = Math.round(
+          Math.abs((selectedEndDate - selectedStartDate) / oneDay)
+        )
+        setTotalPrice(diffDays * pricePerDay)
+      }
+    }
+    calculateTotalPrice()
+  }, [selectedStartDate, selectedEndDate, pricePerDay])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -92,46 +109,61 @@ function BookingCalendar({ vanID, pricePerDay }) {
   }
 
   return (
-    <div className="flex flex-col items-center px-5 space-y-4 text-voyage-black font-roboto font-normal">
+    <div className="flex flex-col items-end px-5 space-y-4 text-voyage-black font-roboto font-normal border border-voyage-white mt-8 p-16 pr-32">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
       >
         <h2>Booking Calendar</h2>
-        <p className="font-roboto font-normal">From <span className="text-lg font-roboto font-black ">${pricePerDay}</span> AUD / day</p>
-        <div className="flex space-x-4 font-roboto font-normal">
-          {' '}
-          {/* input fields for start and end dates */}
-          <input
-            type={selectedStartDate ? 'date' : 'text'}
-            value={
-              selectedStartDate
-                ? selectedStartDate.toISOString().substring(0, 10)
-                : ''
-            }
-            onChange={(e) => setSelectedStartDate(new Date(e.target.value))}
-            placeholder="From date..."
-            onFocus={(e) => (e.target.type = 'date')}
-            onBlur={(e) =>
-              (e.target.type = selectedStartDate ? 'date' : 'text')
-            }
-            className="font-roboto font-normal"
-          />
-          <input
-            id="end-date-input"
-            type={selectedEndDate ? 'date' : 'text'}
-            value={
-              selectedEndDate
-                ? selectedEndDate.toISOString().substring(0, 10)
-                : ''
-            }
-            onChange={(e) => setSelectedEndDate(new Date(e.target.value))}
-            placeholder="To date..."
-            onFocus={(e) => (e.target.type = 'date')}
-            onBlur={(e) => (e.target.type = selectedEndDate ? 'date' : 'text')}
-            min={selectedStartDate?.toISOString().substring(0, 10)}
-            className="font-roboto font-normal"
-          />
+        <p className="font-roboto font-normal">
+          {totalPrice ? (
+            <>
+              Total price:{' '}
+              <span className="text-lg font-roboto font-black ">
+                ${totalPrice}
+              </span>{' '}
+              AUD
+            </>
+          ) : (
+            <>
+              From{' '}
+              <span className="text-lg font-roboto font-black ">
+                ${pricePerDay}
+              </span>{' '}
+              AUD / day
+            </>
+          )}
+        </p>
+        <div className="md:flex md:flex-col md:space-x-4 font-roboto font-normal">
+          <div className="md:flex md:items-right md:space-x-2 text-right">
+            <label htmlFor="start-date-input">From date:</label>
+            <input
+              id="start-date-input"
+              type="date"
+              value={
+                selectedStartDate
+                  ? selectedStartDate.toISOString().substring(0, 10)
+                  : ''
+              }
+              onChange={(e) => setSelectedStartDate(new Date(e.target.value))}
+              className="font-roboto font-normal"
+            />
+          </div>
+          <div className="md:flex md:items-right md:space-x-2 text-right">
+            <label htmlFor="end-date-input">To date:</label>
+            <input
+              id="end-date-input"
+              type="date"
+              value={
+                selectedEndDate
+                  ? selectedEndDate.toISOString().substring(0, 10)
+                  : ''
+              }
+              onChange={(e) => setSelectedEndDate(new Date(e.target.value))}
+              min={selectedStartDate?.toISOString().substring(0, 10)}
+              className="font-roboto font-normal"
+            />
+          </div>
         </div>
         <Calendar
           onChange={handleDateChange}
@@ -151,10 +183,14 @@ function BookingCalendar({ vanID, pricePerDay }) {
         />
         <button
           type="submit"
-          disabled={!selectedStartDate || !selectedEndDate} // button is disabled if either date is not selected
-          className="bg-voyage-green text-white font-roboto font-light rounded px-4 py-2"
+          disabled={!selectedStartDate || !selectedEndDate}
+          className={`text-white font-roboto font-light rounded px-4 py-2 border border-voyage-green ${
+            !selectedStartDate || !selectedEndDate
+              ? 'text-voyage-green bg-voyage-grey cursor-not-allowed'
+              : 'bg-voyage-green'
+          }`}
         >
-          Submit
+          BOOK NOW
         </button>
       </form>
     </div>
