@@ -1,4 +1,7 @@
 import React from "react";
+import Eddie1 from "../assets/images/vans/eddie/eddie-1.png"
+import Marigold1 from "../assets/images/vans/marigold/marigold-1.png"
+import VengaBus1 from "../assets/images/vans/venga-bus/venga-bus-1.png"
 
 function HireRates() {
   return (
@@ -19,8 +22,24 @@ function HireRates() {
         minim veniam, quis exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat.
       </p>
+      <div className="flex flex-wrap justify-center mt-8 sm:mt-12 space-y-4 md:space-y-0">
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
+          <img src={Eddie1} alt="Eddie 1" className="w-full shadow-xl"/>
+          <h2 className="text-center">EDDIE</h2>
+        </div>
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
+          <img src={Marigold1} alt="Marigold 1" className="w-full shadow-xl"/>
+          <h2 className="text-center">MARIGOLD</h2>
+        </div>
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
+          <img src={VengaBus1} alt="Venga Bus 1" className="w-full shadow-xl"/>
+          <h2 className="text-center">VENGA BUS</h2>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default HireRates;
+
+
