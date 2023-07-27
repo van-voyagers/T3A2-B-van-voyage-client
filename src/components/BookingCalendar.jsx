@@ -5,18 +5,20 @@ import '../Calendar.css'
 import axios from 'axios'
 import VanDescriptions from './VanDescriptions'
 
-function BookingCalendar({ vanID, pricePerDay }) {
+function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
   const [selectedEndDate, setSelectedEndDate] = useState(null)
   const [bookedDates, setBookedDates] = useState([])
   const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
+  const [user, setUser] = useState({})
   const navigate = useNavigate()
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
   useEffect(() => {
+    console.log('Fetching bookings for van:', vanID)
     axios
       .get(`http://localhost:3000/bookings/van/${vanID}`)
       .then((response) => {
@@ -41,12 +43,16 @@ function BookingCalendar({ vanID, pricePerDay }) {
         setError('There was a problem fetching the booking data')
       })
   }, [vanID])
+  
 
   const handleDateChange = (date) => {
+    const offset = date.getTimezoneOffset()
+    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000)
+
     if (!selectedStartDate) {
-      setSelectedStartDate(date)
-    } else if (!selectedEndDate && date > selectedStartDate) {
-      setSelectedEndDate(date)
+      setSelectedStartDate(adjustedDate)
+    } else if (!selectedEndDate && adjustedDate > selectedStartDate) {
+      setSelectedEndDate(adjustedDate)
     } else {
       setSelectedStartDate(null)
       setSelectedEndDate(null)
@@ -67,7 +73,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
       if (selectedStartDate && selectedEndDate) {
         const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
         const diffDays = Math.round(
-          Math.abs((selectedEndDate - selectedStartDate) / oneDay)
+          Math.abs((selectedEndDate - selectedStartDate) / oneDay + 1)
         )
         if (diffDays > 1) {
           // If date range is more than one day
@@ -82,6 +88,32 @@ function BookingCalendar({ vanID, pricePerDay }) {
     calculateTotalPrice()
   }, [selectedStartDate, selectedEndDate, pricePerDay])
 
+  function toLocalISOString(date) {
+    var tzo = -date.getTimezoneOffset(),
+      dif = tzo >= 0 ? '+' : '-',
+      pad = function (num) {
+        var norm = Math.floor(Math.abs(num))
+        return (norm < 10 ? '0' : '') + norm
+      }
+    return (
+      date.getFullYear() +
+      '-' +
+      pad(date.getMonth() + 1) +
+      '-' +
+      pad(date.getDate()) +
+      'T' +
+      pad(date.getHours()) +
+      ':' +
+      pad(date.getMinutes()) +
+      ':' +
+      pad(date.getSeconds()) +
+      dif +
+      pad(tzo / 60) +
+      ':' +
+      pad(tzo % 60)
+    )
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -94,14 +126,29 @@ function BookingCalendar({ vanID, pricePerDay }) {
       return
     }
 
+    const startDate = new Date(
+      selectedStartDate.getTime() +
+        selectedStartDate.getTimezoneOffset() * 60 * 1000
+    )
+    const endDate = new Date(
+      selectedEndDate.getTime() +
+        selectedEndDate.getTimezoneOffset() * 60 * 1000
+    )
+
+    console.log('Sending booking:', {
+      vanID,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+    }) // Added this line
+
     try {
       const response = await axios
         .post(
           'http://localhost:3000/bookings/new-booking',
           {
             vanID,
-            startDate: selectedStartDate,
-            endDate: selectedEndDate,
+            startDate: toLocalISOString(startDate).substring(0, 10),
+            endDate: toLocalISOString(endDate).substring(0, 10),
           },
           {
             headers: {
@@ -111,7 +158,13 @@ function BookingCalendar({ vanID, pricePerDay }) {
         )
         .then((response) => {
           // Handling a successful booking
-          alert('New booking made!')
+          alert(
+            `New booking made for : \n
+            Van: ${vanName.toUpperCase()} 0\n
+            Start date - ${new Date(startDate).toDateString()} \n
+            End date - ${new Date(endDate).toDateString()}\n
+            Total Price: $${totalPrice}`
+          )
           navigate('/account')
         })
         .catch((error) => {
@@ -120,6 +173,12 @@ function BookingCalendar({ vanID, pricePerDay }) {
             alert('Your session has expired, please log in again to continue')
             localStorage.removeItem('token') // Optional: remove the invalid token
             navigate('/login') // Assuming you have a login page at this route
+          } else if (error.response && error.response.status === 400) {
+            alert(
+              'The van is not available for the dates you have selected, please check your dates and try again.'
+            )
+
+            // Showing alert for van not available
           } else {
             console.error(error)
           }
@@ -134,19 +193,19 @@ function BookingCalendar({ vanID, pricePerDay }) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row justify-around text-voyage-black font-roboto font-normal border border-voyage-white mt-8 sm:p-16 text-left m-8">
+    <div className="flex flex-col sm:flex-row justify-around text-voyage-green font-roboto font-normal border border-voyage-white mt-8 sm:p-16 text-left m-8">
       <VanDescriptions />
       <div className="flex-col items-end space-y-4 border border-voyage-green rounded-3xl shadow-md pt-8 pb-8 mt-8 mb-8 sm:m-0 h-full">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
         >
-          <h2>Booking Calendar</h2>
-          <p className="font-roboto font-normal">
+          {/*<h2>Booking Calendar</h2>*/}
+          <p className="font-roboto font-normal pt-6 pb-6">
             {totalPrice ? (
               <>
                 Total price:{' '}
-                <span className="text-lg font-robot-mono">
+                <span className="text-lg font-roboto-mono font-mono font-black text-2xl">
                   ${totalPrice}
                 </span>{' '}
                 AUD
@@ -154,16 +213,21 @@ function BookingCalendar({ vanID, pricePerDay }) {
             ) : (
               <>
                 From{' '}
-                <span className="text-lg font-roboto font-black ">
+                <span className="text-lg font-roboto-mono font-mono font-black text-2xl">
                   ${pricePerDay}
                 </span>{' '}
                 AUD / day
               </>
             )}
           </p>
-          <div className="md:flex md:flex-col md:space-x-4 font-roboto font-normal">
-            <div className="md:flex md:items-right md:space-x-2 text-right">
-              <label htmlFor="start-date-input">From date:</label>
+          <div className="md:flex md:flex-col md:w-72 font-roboto font-normal text-voyage-green">
+            <div className="flex justify-between pb-4">
+              <label
+                htmlFor="start-date-input"
+                className="md:text-left underline"
+              >
+                From Date:
+              </label>
               <input
                 id="start-date-input"
                 type="date"
@@ -172,12 +236,22 @@ function BookingCalendar({ vanID, pricePerDay }) {
                     ? selectedStartDate.toISOString().substring(0, 10)
                     : ''
                 }
-                onChange={(e) => setSelectedStartDate(new Date(e.target.value))}
-                className="font-roboto font-normal"
+                onChange={(e) => {
+                  let date = new Date(e.target.value)
+                  const offset = date.getTimezoneOffset()
+                  date = new Date(date.getTime() - offset * 60 * 1000)
+                  setSelectedStartDate(date)
+                }}
+                className="font-roboto font-normal text-center items-end"
               />
             </div>
-            <div className="md:flex md:items-right md:space-x-2 text-right">
-              <label htmlFor="end-date-input">To date:</label>
+            <div className="flex justify-between w-full">
+              <label
+                htmlFor="end-date-input"
+                className="w-inherit text-md underline"
+              >
+                To Date:
+              </label>
               <input
                 id="end-date-input"
                 type="date"
@@ -186,9 +260,14 @@ function BookingCalendar({ vanID, pricePerDay }) {
                     ? selectedEndDate.toISOString().substring(0, 10)
                     : ''
                 }
-                onChange={(e) => setSelectedEndDate(new Date(e.target.value))}
+                onChange={(e) => {
+                  let date = new Date(e.target.value)
+                  const offset = date.getTimezoneOffset()
+                  date = new Date(date.getTime() - offset * 60 * 1000)
+                  setSelectedEndDate(date)
+                }}
                 min={selectedStartDate?.toISOString().substring(0, 10)}
-                className="font-roboto font-normal"
+                className="font-roboto font-normal text-center items-end"
               />
             </div>
           </div>
@@ -201,6 +280,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
                 : null
             }
             tileDisabled={({ date }) => {
+              date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
               const formattedDate = date.setHours(0, 0, 0, 0) // Removes the time part of the date
               return (
                 formattedDate < today ||

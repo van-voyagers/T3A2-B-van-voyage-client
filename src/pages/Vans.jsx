@@ -30,17 +30,17 @@ function Vans() {
             <p className="text-center mt-20 text-xl font-roboto-mono">
               {selectedVan.vanName}
             </p>
-            <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} />
+            <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} vanName={selectedVan.vanName} />
           </div>
         )}
         {vans.map((van) => (
           <div key={van._id} className="mb-8 hidden md:block"> {/* hidden md:block will show this on medium and larger screens */}
-            <p className="text-center mt-20 text-xl font-roboto font-black">
+            <p className="text-center mt-20 text-3xl font-roboto-mono font-mono">
               {van.vanName}
               
             </p>
             
-            <BookingCalendar vanID={van._id} pricePerDay={van.pricePerDay} />
+            <BookingCalendar vanID={van._id} pricePerDay={van.pricePerDay} vanName={van.vanName} />
             
           </div>
         ))}
