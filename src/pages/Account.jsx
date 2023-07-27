@@ -6,7 +6,7 @@ function Account() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <p className="text-center mt-20 text-xl flex-grow">Account</p>
+      <p className="text-center font-roboto-mono text-voyage-black mt-20 text-xl flex-grow">Account Settings</p>
       <Footer />
     </div>
   );
