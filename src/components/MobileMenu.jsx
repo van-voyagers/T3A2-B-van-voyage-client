@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import MobileBurgerMenu from "../assets/icons/mobile-burger-menu.png";
 import VanVoyageFooterLogo from "../assets/icons/van-voyage-footer-logo.png";
 import VanVoyageHeaderLogo from "../assets/icons/van-voyage-header-logo.png";
+import { UserContext } from "../components/UserContext";
 
 function MobileMenu() {
   // The isOpen state variable is used to control the visibility of the mobile menu.
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = useContext(UserContext); // Access the token from UserContext
 
   // The handleClick function toggles the visibility of the mobile menu.
   const handleClick = () => setIsOpen(!isOpen);
@@ -65,16 +67,33 @@ function MobileMenu() {
                 CONTACT
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/login" onClick={handleClick} className="block">
-                LOGIN
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup" onClick={handleClick} className="block">
-                SIGN UP
-              </NavLink>
-            </li>
+            {token ? (
+              <>
+                <li>
+                  <NavLink to="/account" onClick={handleClick} className="block">
+                    ACCOUNT
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/logout" onClick={handleClick} className="block">
+                    LOG OUT
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/login" onClick={handleClick} className="block">
+                    LOGIN
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signup" onClick={handleClick} className="block">
+                    SIGN UP
+                  </NavLink>
+                </li>
+              </>
+            )}
             <li>
               <NavLink to="/vans" onClick={handleClick} className="block">
                 BOOK NOW
@@ -100,3 +119,4 @@ function MobileMenu() {
 }
 
 export default MobileMenu;
+

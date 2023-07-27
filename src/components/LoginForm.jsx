@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../components/UserContext';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { token, setToken } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("Token before update:", token);
+  }, []);
+
+  useEffect(() => {
+    console.log("Token after update:", token);
+  }, [token]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await axios.post('http://localhost:3000/users/sign-in', { email, password });
+      
+      console.log("Response data:", response.data);
+      setToken(response.data.token);
 
-      // Handle successful submission here
-      alert("Successfully signed in!");
       navigate('/account');
     } catch (error) {
-      // Handle error during submission here
       console.error(error);
     }
   }
@@ -59,3 +69,8 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+
+
+
+
