@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MobileBurgerMenu from "../assets/icons/mobile-burger-menu.png";
 import VanVoyageFooterLogo from "../assets/icons/van-voyage-footer-logo.png";
 import VanVoyageHeaderLogo from "../assets/icons/van-voyage-header-logo.png";
+import { UserContext } from "../components/UserContext";
 
 function MobileMenu() {
-  // The isOpen state variable is used to control the visibility of the mobile menu.
   const [isOpen, setIsOpen] = useState(false);
+  const { token, logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  // The handleClick function toggles the visibility of the mobile menu.
   const handleClick = () => setIsOpen(!isOpen);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
-      {/* This button handles the opening and closing of the mobile menu. */}
       <button onClick={handleClick}>
         <img
           src={MobileBurgerMenu}
@@ -22,13 +29,11 @@ function MobileMenu() {
         />
       </button>
 
-      {/* The mobile menu itself, which is either displayed or hidden depending on the state of isOpen. */}
       <div
         className={`fixed inset-0 flex flex-col justify-between z-50 transition-transform duration-300 bg-voyage-green ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* This div contains a button that can close the mobile menu and the list of links in the mobile menu. */}
         <div className="absolute top-2 w-full p-4 flex shadow-md justify-between items-center">
           <img
             src={VanVoyageHeaderLogo}
@@ -65,16 +70,33 @@ function MobileMenu() {
                 CONTACT
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/login" onClick={handleClick} className="block">
-                LOGIN
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/signup" onClick={handleClick} className="block">
-                SIGN UP
-              </NavLink>
-            </li>
+            {token ? (
+              <>
+                <li>
+                  <NavLink to="/account" onClick={handleClick} className="block">
+                    ACCOUNT
+                  </NavLink>
+                </li>
+                <li>
+                  <button onClick={handleLogout} className="block">
+                    LOG OUT
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/login" onClick={handleClick} className="block">
+                    LOGIN
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signup" onClick={handleClick} className="block">
+                    SIGN UP
+                  </NavLink>
+                </li>
+              </>
+            )}
             <li>
               <NavLink to="/vans" onClick={handleClick} className="block">
                 BOOK NOW
@@ -83,7 +105,6 @@ function MobileMenu() {
           </ul>
         </div>
 
-        {/* Footer logo and copyright text */}
         <div className="flex flex-col items-center pb-4">
           <img
             src={VanVoyageFooterLogo}
@@ -100,3 +121,6 @@ function MobileMenu() {
 }
 
 export default MobileMenu;
+
+
+

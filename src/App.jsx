@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { UserContext } from "./components/UserContext";
 import "./App.css";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -28,3 +29,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+

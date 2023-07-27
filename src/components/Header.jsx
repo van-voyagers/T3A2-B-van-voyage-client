@@ -1,13 +1,25 @@
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import VanVoyageHeaderLogo from "../assets/icons/van-voyage-header-logo.png";
 import MobileMenu from "./MobileMenu";
+import { UserContext } from "../components/UserContext";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { token, logout } = useContext(UserContext); // Extract the token and logout function from the UserContext
+
+  useEffect(() => {
+    console.log("Token in header:", token);
+  }, [token]);
 
   const getNavLinkClass = (path) => {
     return location.pathname === path ? "font-medium" : "";
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -54,34 +66,55 @@ function Header() {
               CONTACT
             </NavLink>
           </li>
-          <li className={getNavLinkClass("/login")}>
-            <NavLink
-              to="/login"
-              className="transition-all duration-300 hover:font-normal"
-            >
-              LOGIN
-            </NavLink>
-          </li>
-          <li className={getNavLinkClass("/signup")}>
-            <NavLink
-              to="/signup"
-              className="transition-all duration-300 hover:font-medium"
-            >
-              SIGN UP
-            </NavLink>
-          </li>
+          {token ? (
+            <>
+              <li className={getNavLinkClass("/account")}>
+                <NavLink
+                  to="/account"
+                  className="transition-all duration-300 hover:font-normal"
+                >
+                  ACCOUNT
+                </NavLink>
+              </li>
+              <li className={getNavLinkClass("/logout")}>
+                <a
+                  onClick={handleLogout}
+                  className="cursor-pointer transition-all duration-300 hover:font-normal"
+                >
+                  LOG OUT
+                </a>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={getNavLinkClass("/login")}>
+                <NavLink
+                  to="/login"
+                  className="transition-all duration-300 hover:font-normal"
+                >
+                  LOGIN
+                </NavLink>
+              </li>
+              <li className={getNavLinkClass("/signup")}>
+                <NavLink
+                  to="/signup"
+                  className="transition-all duration-300 hover:font-medium"
+                >
+                  SIGN UP
+                </NavLink>
+              </li>
+            </>
+          )}
           <li className="border border-voyage-white font-light px-2 py-1">
             <NavLink
               to="/vans"
               className="transition-all duration-500 hover:font-normal"
             >
-              BOOK NOW
+              Book Now
             </NavLink>
           </li>
         </ul>
       </nav>
-
-      {/* Mobile Menu */}
       <div className="md:hidden">
         <MobileMenu />
       </div>
@@ -90,3 +123,9 @@ function Header() {
 }
 
 export default Header;
+
+
+
+
+
+
