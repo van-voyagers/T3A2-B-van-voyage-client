@@ -99,6 +99,11 @@
   color: #2D2D2D;
 }
 
+.react-calendar__tile--rangeEnd, .react-calendar__tile--rangeStart {
+  background: #36413Fe0 !important;
+  color: #f8f8f8;
+}
+
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
 }
