@@ -26,6 +26,8 @@ function LoginForm() {
       console.log("Response data:", response.data);
       setToken(response.data.token);
 
+      // Handle successful submission here
+      alert("Successfully signed in!");
       navigate('/account');
     } catch (error) {
       console.error(error);

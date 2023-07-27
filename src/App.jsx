@@ -9,9 +9,11 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Vans from "./pages/Vans";
 
+
 function App() {
   return (
     <div className="bg-voyage-grey min-h-screen">
+      {/*<VanProvider>*/}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -21,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/vans" element={<Vans />} />
       </Routes>
+      {/*</VanProvider>*/}
     </div>
   );
 }

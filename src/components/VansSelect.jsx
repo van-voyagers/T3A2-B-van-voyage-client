@@ -1,13 +1,11 @@
-// VansSelect.jsx
-import { useState, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import axios from 'axios'
+//import { VanContext } from '../contexts/VanContext'
 
-function VansSelect({ onVanSelect }) {
-  const [vans, setVans] = useState([])
-
+function VansSelect({ onVansLoaded }) {
+  //const { vans, setSelectedVan } = useContext(VanContext)
   useEffect(() => {
-    // call API endpoint to fetch vans data
-    fetchVans().then(setVans)
+    fetchVans().then(onVansLoaded)
   }, [])
 
   const fetchVans = async () => {
@@ -20,26 +18,7 @@ function VansSelect({ onVanSelect }) {
     }
   }
 
-  const handleVanSelect = (event) => {
-    const selectedVan = vans.find((van) => van._id === event.target.value)
-    onVanSelect(selectedVan)
-  }
-
-  return (
-    <div className="flex items-center justify-center w-full">
-      <select
-        onChange={handleVanSelect}
-        className="w-64 px-3 py-2 mt-1 mb-3 text-base text-black transition duration-500 ease-in-out transform border-4 voyage-green rounded-4 bg-white shadow-xl focus:voyage-white focus:bg-voyage-grey focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 text-center"
-      >
-        <option value="">Select a van</option>
-        {vans.map((van) => (
-          <option key={van._id} value={van._id}>
-            {van.vanName}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
+  return null
 }
 
 export default VansSelect
