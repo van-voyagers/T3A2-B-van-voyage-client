@@ -90,6 +90,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
     // Check if token exists before making a booking
     if (!token) {
       alert('Please log in to make a booking')
+      navigate('/login')
       return
     }
 
@@ -145,7 +146,7 @@ function BookingCalendar({ vanID, pricePerDay }) {
             {totalPrice ? (
               <>
                 Total price:{' '}
-                <span className="text-lg font-roboto font-black ">
+                <span className="text-lg font-robot-mono">
                   ${totalPrice}
                 </span>{' '}
                 AUD

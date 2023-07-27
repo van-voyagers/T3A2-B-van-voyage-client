@@ -27,7 +27,7 @@ function Vans() {
       <div className="text-center mt-20 text-xl flex-grow">
         {selectedVan && (
           <div className="mb-8 md:hidden"> {/* md:hidden will hide this on medium and larger screens */}
-            <p className="text-center mt-20 text-xl font-roboto font-black">
+            <p className="text-center mt-20 text-xl font-roboto-mono">
               {selectedVan.vanName}
             </p>
             <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} />
