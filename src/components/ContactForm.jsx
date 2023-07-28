@@ -1,22 +1,38 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react';
+import emailjs from "@emailjs/browser";
 
 function ContactForm() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const form = useRef();
 
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
+        import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert("Email successfully sent!");
+          form.current.reset();
+        },
+        (error) => {
+          console.log(error.text);
+          alert("Failed to send email. Please try again!");
+        }
+      );
   };
 
   return (
     <div className="flex justify-center">
       <div className="max-w-screen-sm w-full lg:max-w-screen-md">
         <form
-          onSubmit={handleSubmit}
+          ref={form}
+          onSubmit={sendEmail}
           className="flex flex-col px-5 space-y-4 text-voyage-black"
         >
           <div className="w-full space-y-4">
@@ -25,8 +41,6 @@ function ContactForm() {
                 type="text"
                 id="firstName"
                 name="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
                 placeholder="First Name..."
                 className="w-full h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
               />
@@ -35,8 +49,6 @@ function ContactForm() {
                 type="text"
                 id="lastName"
                 name="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last Name..."
                 className="w-full h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
               />
@@ -46,8 +58,6 @@ function ContactForm() {
               type="tel"
               id="phone"
               name="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
               placeholder="Phone..."
               className="w-full h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
@@ -56,8 +66,6 @@ function ContactForm() {
               type="email"
               id="email"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email..."
               className="w-full h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
@@ -65,8 +73,6 @@ function ContactForm() {
             <textarea
               id="message"
               name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
               placeholder="Message..."
               className="w-full h-40 pl-2 pt-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
@@ -87,3 +93,4 @@ function ContactForm() {
 }
 
 export default ContactForm
+
