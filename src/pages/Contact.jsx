@@ -1,12 +1,18 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ContactPage1 from "../assets/images/contact-page-1.png";
+import ContactForm from "../components/ContactForm";
 
 function Contact() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <p className="text-center mt-20 text-xl flex-grow">Contact</p>
+      <div>
+        <img src={ContactPage1} alt="Home Page" className="w-full h-auto" />
+      </div>
+      <p className="text-center font-roboto-mono text-voyage-black mt-20 mb-10 text-md">Contact Us</p>
+      <ContactForm />
       <Footer />
     </div>
   );
