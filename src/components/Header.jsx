@@ -37,7 +37,7 @@ function Header() {
           <li className={getNavLinkClass("/")}>
             <NavLink
               to="/"
-              className="transition-all duration-300 hover:font-normal"
+              className="transition-all duration-100 hover:font-normal"
             >
               HOME
             </NavLink>
@@ -45,7 +45,7 @@ function Header() {
           <li className={getNavLinkClass("/about")}>
             <NavLink
               to="/about"
-              className="transition-all duration-300 hover:font-normal"
+              className="transition-all duration-100 hover:font-normal"
             >
               ABOUT
             </NavLink>
@@ -53,7 +53,7 @@ function Header() {
           <li className={getNavLinkClass("/vans")}>
             <NavLink
               to="/vans"
-              className="transition-all duration-300 hover:font-medium"
+              className="transition-all duration-100 hover:font-medium"
             >
               VANS
             </NavLink>
@@ -61,7 +61,7 @@ function Header() {
           <li className={getNavLinkClass("/contact")}>
             <NavLink
               to="/contact"
-              className="transition-all duration-300 hover:font-normal"
+              className="transition-all duration-100 hover:font-normal"
             >
               CONTACT
             </NavLink>
@@ -71,7 +71,7 @@ function Header() {
               <li className={getNavLinkClass("/account")}>
                 <NavLink
                   to="/account"
-                  className="transition-all duration-300 hover:font-normal"
+                  className="transition-all duration-100 hover:font-normal"
                 >
                   ACCOUNT
                 </NavLink>
@@ -79,7 +79,7 @@ function Header() {
               <li className={getNavLinkClass("/logout")}>
                 <a
                   onClick={handleLogout}
-                  className="cursor-pointer transition-all duration-300 hover:font-normal"
+                  className="cursor-pointer transition-all duration-100 hover:font-normal"
                 >
                   LOG OUT
                 </a>
@@ -90,7 +90,7 @@ function Header() {
               <li className={getNavLinkClass("/login")}>
                 <NavLink
                   to="/login"
-                  className="transition-all duration-300 hover:font-normal"
+                  className="transition-all duration-100 hover:font-normal"
                 >
                   LOGIN
                 </NavLink>
@@ -98,7 +98,7 @@ function Header() {
               <li className={getNavLinkClass("/signup")}>
                 <NavLink
                   to="/signup"
-                  className="transition-all duration-300 hover:font-medium"
+                  className="transition-all duration-100 hover:font-medium"
                 >
                   SIGN UP
                 </NavLink>
@@ -108,7 +108,7 @@ function Header() {
           <li className="border border-voyage-white font-light px-2 py-1">
             <NavLink
               to="/vans"
-              className="transition-all duration-500 hover:font-normal"
+              className="transition-all duration-100 hover:font-normal"
             >
               Book Now
             </NavLink>
