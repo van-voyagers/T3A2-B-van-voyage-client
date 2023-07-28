@@ -11,7 +11,6 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [bookedDates, setBookedDates] = useState([])
   const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
-  const [user, setUser] = useState({})
   const navigate = useNavigate()
 
   const today = new Date()
@@ -201,11 +200,11 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
         >
           {/*<h2>Booking Calendar</h2>*/}
-          <p className="font-roboto font-mono pt-6 pb-6">
+          <p className="font-mono pt-6 pb-6">
             {totalPrice ? (
               <>
                 Total price:{' '}
-                <span className="text-3xl font-roboto-mono font-mono">
+                <span className="text-3xl font-mono">
                   ${totalPrice}
                 </span>{' '}
                 AUD
@@ -213,7 +212,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             ) : (
               <>
                 From{' '}
-                <span className="text-3xl font-roboto-mono font-mono">
+                <span className="text-3xl font-mono">
                   ${pricePerDay}
                 </span>{' '}
                 AUD / day
@@ -224,7 +223,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             <div className="flex justify-between pb-4">
               <label
                 htmlFor="start-date-input"
-                className="w-inherit text-md font-roboto-mono font-mono flex items-center"
+                className="w-inherit text-md font-mono flex items-center"
               >
                 From Date:
               </label>
@@ -242,13 +241,13 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
                   date = new Date(date.getTime() - offset * 60 * 1000)
                   setSelectedStartDate(date)
                 }}
-                className="font-roboto-mono font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
+                className="font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
               />
             </div>
             <div className="flex justify-between w-full">
               <label
                 htmlFor="end-date-input"
-                className="w-inherit text-md font-roboto-mono font-mono flex items-center"
+                className="w-inherit text-md font-mono flex items-center"
               >
                 To Date:
               </label>
@@ -267,7 +266,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
                   setSelectedEndDate(date)
                 }}
                 min={selectedStartDate?.toISOString().substring(0, 10)}
-                className="font-roboto-mono font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
+                className="font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
               />
             </div>
           </div>
