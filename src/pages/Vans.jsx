@@ -35,7 +35,7 @@ function Vans() {
         )}
         {vans.map((van) => (
           <div key={van._id} className="mb-8 hidden md:block"> {/* hidden md:block will show this on medium and larger screens */}
-            <p className="text-center mt-20 text-3xl font-roboto-mono font-mono">
+            <p className="text-center mt-20 text-3xl font-mono">
               {van.vanName}
               
             </p>

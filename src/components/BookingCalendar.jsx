@@ -11,6 +11,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [bookedDates, setBookedDates] = useState([])
   const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
+
   const navigate = useNavigate()
 
   const today = new Date()
