@@ -8,7 +8,6 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Vans from "./pages/Vans";
 
-
 function App() {
   return (
     <div className="bg-voyage-grey min-h-screen">
@@ -26,6 +25,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 
