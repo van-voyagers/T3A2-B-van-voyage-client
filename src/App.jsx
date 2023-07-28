@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { UserContext } from "./components/UserContext";
 import "./App.css";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -13,7 +12,6 @@ import Vans from "./pages/Vans";
 function App() {
   return (
     <div className="bg-voyage-grey min-h-screen">
-      {/*<VanProvider>*/}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -23,7 +21,6 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/vans" element={<Vans />} />
       </Routes>
-      {/*</VanProvider>*/}
     </div>
   );
 }

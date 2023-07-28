@@ -7,11 +7,15 @@ function CreateAccountForm() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // Define API_URL based on the mode
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/users/create-account', { email, password });
+      console.log(API_URL);
+      const response = await axios.post(`${API_URL}/users/create-account`, { email, password });
 
       // Handle successful submission here
       alert("Account successfully created!");
