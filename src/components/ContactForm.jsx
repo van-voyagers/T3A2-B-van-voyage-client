@@ -68,14 +68,14 @@ function ContactForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Message..."
-              className="w-full h-20 pl-2 pt-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
+              className="w-full h-40 pl-2 pt-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
 
           </div>
           <div className="self-start">
             <button
               type="submit"
-              className="bg-voyage-green shadow-lg text-white font-roboto mb-10 font-light rounded px-4 py-2"
+              className="bg-voyage-green shadow-lg text-white font-roboto mb-20 font-light rounded px-4 py-2"
             >
               Submit
             </button>

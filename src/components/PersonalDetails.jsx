@@ -11,10 +11,13 @@ function PersonalDetails() {
     driversLicense: ""
   });
 
+  // Define API_URL based on the mode
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token"); // replace with your token retrieval logic
-      const result = await axios.get("http://localhost:3000/users/me", {
+      const result = await axios.get(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

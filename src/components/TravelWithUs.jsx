@@ -17,7 +17,7 @@ function TravelWithUs() {
             to="/vans"
             className="transition-all duration-500 hover:font-normal"
           >
-            BOOK NOW
+            Book Now
           </NavLink>
         </li>
       </div>

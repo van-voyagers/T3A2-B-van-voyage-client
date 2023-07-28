@@ -9,6 +9,9 @@ function LoginForm() {
   const navigate = useNavigate();
   const { token, setToken } = useContext(UserContext);
 
+  // Define API_URL based on the mode
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   useEffect(() => {
     console.log("Token before update:", token);
   }, []);
@@ -21,7 +24,7 @@ function LoginForm() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/users/sign-in", {
+      const response = await axios.post(`${API_URL}/users/sign-in`, {
         email,
         password,
       });
