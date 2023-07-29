@@ -4,6 +4,8 @@ import axios from 'axios'
 function BookingHistory() {
   const [bookings, setBookings] = useState([])
 
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   useEffect(() => {
     const fetchUserBookings = async () => {
       try {
@@ -15,7 +17,7 @@ function BookingHistory() {
         }
 
         const response = await axios.get(
-          'http://localhost:3000/bookings/my-bookings',
+          `${API_URL}/bookings/my-bookings`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
