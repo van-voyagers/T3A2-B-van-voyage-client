@@ -9,7 +9,7 @@ function SignUp() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex flex-col items-center justify-center flex-grow">
-        <p className="text-center text-xl mb-6 font-roboto-mono text-voyage-black">Create an Account</p>
+        <p className="text-center text-xl mb-6 font-roboto text-voyage-black">CREATE AN ACCOUNT</p>
         <CreateAccountForm />
       </div>
       <Footer />

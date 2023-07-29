@@ -14,6 +14,9 @@ function UpdateDetailsForm() {
   const navigate = useNavigate();
   const { token } = useContext(UserContext);
 
+  // Define API_URL based on the mode
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -30,7 +33,7 @@ function UpdateDetailsForm() {
 
     try {
       const response = await axios.put(
-        "http://localhost:3000/users/update",
+        `${API_URL}/users/update`,
         updatedFields,
         {
           headers: {

@@ -10,6 +10,9 @@ function ChangePasswordForm() {
   const navigate = useNavigate();
   const { token, setToken } = useContext(UserContext);
 
+  // Define API_URL based on the mode
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -20,7 +23,7 @@ function ChangePasswordForm() {
 
     try {
       const response = await axios.put(
-        "http://localhost:3000/users/change-password",
+        `${API_URL}/users/change-password`,
         {
           oldPassword: currentPassword,
           newPassword: newPassword,
@@ -60,7 +63,7 @@ function ChangePasswordForm() {
       try {
         console.log("Token before request: ", token);
         const response = await axios.delete(
-          "http://localhost:3000/users/delete",
+          `${API_URL}/users/delete`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
