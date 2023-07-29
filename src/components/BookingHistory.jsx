@@ -6,7 +6,6 @@ function BookingHistory() {
   const [bookings, setBookings] = useState([])
   const [upcomingBookings, setUpcomingBookings] = useState([])
   const [previousBookings, setPreviousBookings] = useState([])
-  const navigate = useNavigate()
 
   const API_URL =
     import.meta.env.MODE === 'production'
@@ -52,8 +51,6 @@ function BookingHistory() {
     setPreviousBookings(previous)
   }, [bookings])
 
-  
-
   function calculateNumberOfDays(startDate, endDate) {
     const oneDay = 24 * 60 * 60 * 1000 // One day in milliseconds
     const start = new Date(startDate)
@@ -77,10 +74,12 @@ function BookingHistory() {
         },
       })
 
-      // After successful deletion, fetch the updated bookings
-      fetchUserBookings()
+      // Show alert for "Booking cancelled"
       alert('Booking cancelled')
-      navigate('/account')
+      
+      // After successful deletion, fetch the updated bookings
+      location.reload()
+      
     } catch (error) {
       console.error('Error deleting booking:', error)
     }
@@ -149,10 +148,20 @@ function BookingHistory() {
                 key={booking._id}
                 className="text-voyage-black shadow-xl border border-voyage-black rounded-lg my-16 py-8 px-16"
               >
-                <p className="py-4"><strong>Van:</strong> {booking.van.vanName}</p>
-                <p><strong>Start date:</strong> {new Date(booking.startDate).toDateString()}</p>
-                <p><strong>End date:</strong> {new Date(booking.endDate).toDateString()}</p>
-                <p className="py-4"><strong>Total Price:</strong> ${booking.totalPrice}</p>
+                <p className="py-4">
+                  <strong>Van:</strong> {booking.van.vanName}
+                </p>
+                <p>
+                  <strong>Start date:</strong>{' '}
+                  {new Date(booking.startDate).toDateString()}
+                </p>
+                <p>
+                  <strong>End date:</strong>{' '}
+                  {new Date(booking.endDate).toDateString()}
+                </p>
+                <p className="py-4">
+                  <strong>Total Price:</strong> ${booking.totalPrice}
+                </p>
                 <p className="mt-10">
                   {new Date(booking.endDate) >= new Date() ? (
                     <span className="text-cyan-700">TRIP IN PROGRESS</span>
