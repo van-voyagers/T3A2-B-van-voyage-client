@@ -14,7 +14,7 @@ function Header() {
   }, [token]);
 
   const getNavLinkClass = (path) => {
-    return location.pathname === path ? "font-medium" : "";
+    return location.pathname === path ? "font-normal" : "";
   };
 
   const handleLogout = () => {
@@ -110,7 +110,7 @@ function Header() {
               to="/vans"
               className="transition-all duration-100 border-b border-transparent hover:border-voyage-white"
             >
-              Book Now
+              BOOK NOW
             </NavLink>
           </li>
         </ul>
