@@ -2,22 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function ReviewForm() {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
   const [bookingId, setBookingId] = useState(null);
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
-  const stars = Array(5).fill(0); // create an array of 5 zeros to represent the stars
+  const stars = Array(5).fill(0);
 
   useEffect(() => {
-    // Helper function to get the authentication token from storage (local storage, session storage, etc.)
     function getAuthToken() {
-      return localStorage.getItem("token"); // Use the correct key "token" to retrieve the authentication token
+      return localStorage.getItem("token");
     }
 
-    // Fetch the bookings of the current user when the component mounts
     const authToken = getAuthToken();
     if (authToken) {
       axios
@@ -28,7 +26,7 @@ function ReviewForm() {
         })
         .then((response) => {
           if (response.data.length > 0) {
-            setBookingId(response.data[0]._id); // set the bookingId state to the id of the first booking
+            setBookingId(response.data[0]._id);
           }
         })
         .catch((error) =>
@@ -38,13 +36,24 @@ function ReviewForm() {
   }, []);
 
   const handleStarClick = (i) => {
-    setRating(i + 1); // update the rating when a star is clicked
+    setRating(i + 1);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // If there is no bookingId, the user has no bookings and cannot post a review
+    function getAuthToken() {
+      return localStorage.getItem("token");
+    }
+
+    const authToken = getAuthToken();
+    if (!authToken) {
+      alert(
+        "You must be logged in to post a review. Please log in and try again."
+      );
+      return;
+    }
+
     if (!bookingId) {
       alert("You must have at least one booking to post a review.");
       return;
@@ -56,17 +65,6 @@ function ReviewForm() {
       comment,
     };
 
-    // Helper function to get the authentication token from storage (local storage, session storage, etc.)
-    function getAuthToken() {
-      return localStorage.getItem("token"); // Use the correct key "token" to retrieve the authentication token
-    }
-
-    const authToken = getAuthToken();
-    if (!authToken) {
-      alert("You must be logged in to post a review.");
-      return;
-    }
-
     axios
       .post(`${API_URL}/reviews/create`, review, {
         headers: {
@@ -75,8 +73,8 @@ function ReviewForm() {
       })
       .then(() => {
         alert("Review successfully posted!");
-        setComment(""); // clear the comment
-        setRating(0); // reset the rating
+        setComment("");
+        setRating(0);
       })
       .catch((error) => {
         console.error("Error posting review:", error);
@@ -127,4 +125,3 @@ function ReviewForm() {
 }
 
 export default ReviewForm;
-
