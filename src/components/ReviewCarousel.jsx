@@ -95,7 +95,7 @@ const ReviewCarousel = () => {
           </p>
         </div>
       ) : (
-        <p className="text-voyage-black font-roboto-mono">Loading...</p>
+        <p className="text-voyage-black font-roboto-mono">...LOADING...</p>
       )}
     </div>
   );

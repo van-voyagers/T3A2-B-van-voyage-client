@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ContactPage1 from "../assets/images/contact-page-1.png";
 import ContactForm from "../components/ContactForm";
+import ReviewForm from "../components/ReviewForm";
 
 function Contact() {
   return (
@@ -13,6 +14,8 @@ function Contact() {
       </div>
       <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md lg:text-xl">CONTACT US</p>
       <ContactForm />
+      <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md lg:text-xl">LEAVE US A REVIEW</p>
+      <ReviewForm />
       <Footer />
     </div>
   );
