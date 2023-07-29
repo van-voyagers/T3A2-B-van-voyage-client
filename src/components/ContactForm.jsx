@@ -81,7 +81,7 @@ function ContactForm() {
           <div className="self-start">
             <button
               type="submit"
-              className="bg-voyage-green shadow-lg text-white font-roboto mb-20 font-light rounded px-4 py-2"
+              className="bg-voyage-green shadow-lg text-white font-roboto font-light rounded px-4 py-2"
             >
               Submit
             </button>
