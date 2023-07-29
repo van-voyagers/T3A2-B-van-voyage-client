@@ -14,13 +14,10 @@ function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-
       <div>
         <img src={HomePage1} alt="Home Page" className="w-full h-auto" />
       </div>
-
       <TravelWithUs />
-
       <div>
         <img src={HomePage2} alt="Home Page" className="w-full h-auto" />
       </div>

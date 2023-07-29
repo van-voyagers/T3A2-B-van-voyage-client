@@ -13,13 +13,15 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
+  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
   useEffect(() => {
     console.log('Fetching bookings for van:', vanID)
     axios
-      .get(`http://localhost:3000/bookings/van/${vanID}`)
+      .get(`${API_URL}/bookings/van/${vanID}`)
       .then((response) => {
         const bookings = response.data
         const dates = bookings.flatMap((booking) => {
@@ -143,7 +145,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     try {
       const response = await axios
         .post(
-          'http://localhost:3000/bookings/new-booking',
+          `${API_URL}/bookings/new-booking`,
           {
             vanID,
             startDate: toLocalISOString(startDate).substring(0, 10),

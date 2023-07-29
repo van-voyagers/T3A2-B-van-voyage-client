@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import PersonalDetails from "../components/PersonalDetails";  
 import UpdateDetailsForm from "../components/UpdateDetailsForm";  
 import ChangePasswordForm from "../components/ChangePasswordForm";
+import BookingHistory from '../components/BookingHistory'
 
 function Account() {
   return (
@@ -16,6 +17,8 @@ function Account() {
       <UpdateDetailsForm /> 
       <p className="text-center font-roboto text-voyage-black mb-10 text-md">Change Password</p>
       <ChangePasswordForm />
+      <p className="text-center font-roboto-mono text-voyage-black mb-10 text-md">Booking History</p>
+      <BookingHistory />
       <Footer />
     </div>
   );
