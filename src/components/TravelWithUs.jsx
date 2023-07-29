@@ -15,9 +15,9 @@ function TravelWithUs() {
         <li className="list-none border border-voyage-black font-normal px-2 py-1">
           <NavLink
             to="/vans"
-            className="transition-all duration-500 hover:font-normal"
+            className="transition-all duration-100 border-b border-transparent hover:border-voyage-black"
           >
-            Book Now
+            BOOK NOW
           </NavLink>
         </li>
       </div>

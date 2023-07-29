@@ -8,6 +8,7 @@ import HomePage4 from "../assets/images/home-page-4.png";
 import TravelWithUs from "../components/TravelWithUs";
 import HireRates from "../components/HireRates";
 import ReasonsToHire from "../components/ReasonsToHire";
+import ReviewCarousel from "../components/ReviewCarousel";
 
 function Home() {
   return (
@@ -31,7 +32,7 @@ function Home() {
       <div>
         <img src={HomePage4} alt="Home Page" className="w-full h-auto" />
       </div>
-
+      <ReviewCarousel />
       <Footer />
     </div>
   );
