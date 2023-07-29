@@ -23,16 +23,9 @@ function BookingHistory() {
           }
         );
 
-        // Fetch van details for each booking (this part can be kept as is)
-      const bookingsWithVanDetails = await Promise.all(
-        response.data.map(async (booking) => {
-          const vanResponse = await axios.get(`http://localhost:3000/bookings/van/${booking.van._id}`);
-          const vanName = vanResponse.data.vanName;
-          return { ...booking, vanName };
-        })
-      );
+      
 
-      setBookings(bookingsWithVanDetails);
+      setBookings(response.data);
     } catch (error) {
         console.error('Error fetching user bookings:', error)
       }
@@ -42,14 +35,16 @@ function BookingHistory() {
   }, [])
 
   return (
-    <div className="flex justify-center p-8">
+    <div className="flex justify-center p-8 px-5">
       {bookings.length === 0 ? (
         <p>No bookings found.</p>
       ) : (
         <ul >
           {bookings.map((booking) => (
-            <li key={booking._id}>
-              <p>Van: {booking.vanName}</p>
+            <li key={booking._id} className="text-voyage-black shadow-xl border border-voyage-black rounded-lg mb-8 p-8 mx-auto max-w-prose font-mono leading-8">
+
+
+              <p>Van: {booking.van.vanName}</p>
               <p>Start date: {new Date(booking.startDate).toDateString()}</p>
               <p>End date: {new Date(booking.endDate).toDateString()}</p>
               <p>Total Price: ${booking.totalPrice}</p>
