@@ -1,45 +1,37 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
 import VansSelect from '../components/VansSelect'
 import MobileVanSelect from '../components/MobileVanSelect'
+import VanCarousel from '../components/VanCarousel' // import the VanCarousel
 
 function Vans() {
   const [selectedVan, setSelectedVan] = useState(null)
   const [vans, setVans] = useState([])
-  //const { vans, setVans, selectedVan, setSelectedVan } = useContext(VanContext)
-  //const handleVanSelect = (van) => {
-  //  setSelectedVans((prev) => [...prev, van])
-  //}
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <VansSelect
-        //className="text-center mt-20 text-xl font-roboto font-normal w-fit"
-        //onVanSelect={handleVanSelect}
-        onVansLoaded={setVans} 
-      />
-      <MobileVanSelect vans={vans} onVanSelect={setSelectedVan} /> {/* Add this line */}
+      <VansSelect onVansLoaded={setVans} />
+      <MobileVanSelect vans={vans} onVanSelect={setSelectedVan} />
       <div className="text-center text-lg flex-grow">
         {selectedVan && (
-          <div className="mb-8 md:hidden"> {/* md:hidden will hide this on medium and larger screens */}
+          <div className="mb-8 md:hidden">
             <p className="text-center mt-20 text-lg text-voyage-black underline underline-offset-4 font-roboto uppercase">
               {selectedVan.vanName}
             </p>
+            <VanCarousel vanName={selectedVan.vanName} />
             <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} vanName={selectedVan.vanName} />
           </div>
         )}
         {vans.map((van) => (
-          <div key={van._id} className="mb-8 hidden md:block"> {/* hidden md:block will show this on medium and larger screens */}
+          <div key={van._id} className="mb-8 hidden md:block">
             <p className="text-center mt-20 text-xl uppercase text-voyage-black underline underline-offset-4 font-roboto">
               {van.vanName}
-              
             </p>
-            
+            <VanCarousel vanName={van.vanName} />
             <BookingCalendar vanID={van._id} pricePerDay={van.pricePerDay} vanName={van.vanName} />
-            
           </div>
         ))}
       </div>

@@ -1,7 +1,7 @@
 function VanDescriptions() {
   return (
     <div>
-      <h3>VAN</h3>
+      <h3>VAN 🚐</h3>
       <br/>
       <ul className="font-mono text-sm">
         <li>Retro design, modern functionality with air conditioning and heating.</li>
@@ -10,7 +10,7 @@ function VanDescriptions() {
       </ul>
       <br/>
 
-      <h3>SLEEPING</h3>
+      <h3>SLEEPING 💤</h3>
       <br/>
       <ul className="font-mono text-sm">
         <li>Comfortable double bed with fresh linens and warm duvet.</li>
@@ -19,7 +19,7 @@ function VanDescriptions() {
       </ul>
       <br/>
 
-      <h3>KITCHEN</h3>
+      <h3>KITCHEN 🥘</h3>
       <br/>
       <ul className="font-mono text-sm"> 
         <li>Stove, fridge, and sink in fully-equipped kitchenette.</li>
@@ -28,7 +28,7 @@ function VanDescriptions() {
       </ul>
       <br/>
 
-      <h3>BATHROOM</h3>
+      <h3>BATHROOM 🧼</h3>
       <br/>
       <ul className="font-mono text-sm">
         <li>Compact bathroom with hot-water shower and toilet.</li>
@@ -36,7 +36,7 @@ function VanDescriptions() {
       </ul>
       <br/>
 
-      <h3>OUTDOOR</h3>
+      <h3>OUTDOOR 🏕</h3>
       <br/>
       <ul className="font-mono text-sm">
         <li>Built-in awning and outdoor furniture for outdoor dining and relaxation.</li>
@@ -45,7 +45,7 @@ function VanDescriptions() {
       </ul>
       <br/>
 
-      <h3>ENTERTAINMENT</h3>
+      <h3>ENTERTAINMENT 🎮</h3>
       <br/>
       <ul className="font-mono text-sm">
         <li>Onboard multimedia system with Bluetooth connectivity.</li>
