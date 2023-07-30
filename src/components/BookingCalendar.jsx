@@ -194,9 +194,9 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row justify-around text-voyage-green font-roboto font-normal border border-voyage-white mt-8 sm:p-16 text-left m-8">
+    <div className="flex flex-col sm:flex-row justify-center text-voyage-green font-normal mt-8 sm:p-16 text-left m-8">
       <VanDescriptions />
-      <div className="flex-col items-end space-y-4 border border-voyage-green rounded-3xl shadow-md pt-8 pb-8 mt-8 mb-8 sm:m-0 h-full">
+      <div className="flex-col items-end space-y-4 border border-voyage-green rounded-3xl shadow-lg pt-8 pb-8 mt-8 mb-8 sm:m-0 h-full sm:ml-10 lg:ml-24">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
@@ -297,7 +297,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             disabled={!selectedStartDate || !selectedEndDate}
             className={`text-white font-roboto font-light rounded px-4 py-2 border border-voyage-green shadow-md ${
               !selectedStartDate || !selectedEndDate
-                ? 'text-voyage-green bg-voyage-grey cursor-not-allowed'
+                ? 'text-voyage-green bg-voyage-black cursor-not-allowed'
                 : 'bg-voyage-green'
             }`}
           >

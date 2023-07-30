@@ -5,32 +5,32 @@ function ReasonsToHire() {
     {
       title: "ADVENTURER'S ABODE",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Experience the freedom of the open road with a van designed for exploration. It's the perfect abode for your wandering spirit.",
     },
     {
       title: "MODERN LUXURY",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Indulge in the comfort of modern amenities while surrounded by nature. Our vans are a synthesis of luxury and adventure.",
     },
     {
       title: "SAFETY IS PARAMOUNT",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Our vans are equipped with safety features and emergency equipment. Your peace of mind is our top priority.",
     },
     {
       title: "THE ARTISAN'S TOUCH",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Every van features artisan craftsmanship. Experience a thoughtful design that marries form and function beautifully.",
     },
     {
       title: "MINIMALIST SANCTUARY",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Immerse in the tranquility of minimalistic interiors. Our vans offer a serene retreat from the hustle and bustle.",
     },
     {
       title: "SUSTAINABLE TRAVEL",
       description:
-        "Vivamus a eros sit amet diam fringilla mollis sit amet in nisl. Fusce hendrerit, erat nec venenatis aliquam, turpis est vulputate mauris, eget maximus justo mi nec diam. Curabitur at nulla nulla.",
+        "Travel responsibly with our eco-friendly features. Explore the great outdoors while leaving a minimal footprint.",
     },
   ];
 
@@ -42,7 +42,7 @@ function ReasonsToHire() {
       {reasonsData.map((reason, index) => (
         <div key={index} className="mb-4">
           <h2 className="text-xs sm:text-sm lg:text-lg">{reason.title}</h2>
-          <p className="text-xs sm:text-sm lg:text-lg font-roboto-mono mt-2">
+          <p className="text-xs sm:text-sm lg:text-lg font-mono mt-2">
             {reason.description}
           </p>
         </div>

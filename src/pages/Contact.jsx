@@ -14,7 +14,7 @@ function Contact() {
       </div>
       <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md lg:text-xl">CONTACT US</p>
       <ContactForm />
-      <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md lg:text-xl">LEAVE US A REVIEW</p>
+      <p className="text-center font-roboto text-voyage-black mt-10 mb-10 text-md lg:text-xl">LEAVE US A REVIEW</p>
       <ReviewForm />
       <Footer />
     </div>

@@ -4,8 +4,6 @@ import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
 import VansSelect from '../components/VansSelect'
 import MobileVanSelect from '../components/MobileVanSelect'
-import VanDescriptions from '../components/VanDescriptions'
-//import { VanContext } from '../contexts/VanContext'
 
 function Vans() {
   const [selectedVan, setSelectedVan] = useState(null)
@@ -24,10 +22,10 @@ function Vans() {
         onVansLoaded={setVans} 
       />
       <MobileVanSelect vans={vans} onVanSelect={setSelectedVan} /> {/* Add this line */}
-      <div className="text-center mt-20 text-xl flex-grow">
+      <div className="text-center text-lg flex-grow">
         {selectedVan && (
           <div className="mb-8 md:hidden"> {/* md:hidden will hide this on medium and larger screens */}
-            <p className="text-center mt-20 text-xl font-roboto-mono">
+            <p className="text-center mt-20 text-lg text-voyage-black underline underline-offset-4 font-roboto uppercase">
               {selectedVan.vanName}
             </p>
             <BookingCalendar vanID={selectedVan._id} pricePerDay={selectedVan.pricePerDay} vanName={selectedVan.vanName} />
@@ -35,7 +33,7 @@ function Vans() {
         )}
         {vans.map((van) => (
           <div key={van._id} className="mb-8 hidden md:block"> {/* hidden md:block will show this on medium and larger screens */}
-            <p className="text-center mt-20 text-3xl font-mono">
+            <p className="text-center mt-20 text-xl uppercase text-voyage-black underline underline-offset-4 font-roboto">
               {van.vanName}
               
             </p>

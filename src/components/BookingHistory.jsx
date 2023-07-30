@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 function BookingHistory() {
   const [bookings, setBookings] = useState([])
@@ -86,11 +85,11 @@ function BookingHistory() {
   }
 
   return (
-    <div className="flex flex-col p-8 px-5 font-mono border items-center leading-8">
+    <div className="flex flex-col p-8 px-5 font-mono items-center text-voyage-black leading-8">
       <div className="max-w-screen-sm w-full lg:max-w-screen-md">
-        <h2 className="text-xl font-mono my-8">Upcoming Bookings:</h2>
+        <h2 className="text-md font-roboto text-center">UPCOMING BOOKINGS</h2>
         {upcomingBookings.length === 0 ? (
-          <p className="py-8">No upcoming bookings found.</p>
+          <p className="py-8 text-center">No upcoming bookings found.</p>
         ) : (
           <ul>
             {upcomingBookings.map((booking) => (
@@ -137,10 +136,10 @@ function BookingHistory() {
           </ul>
         )}
       </div>
-      <div className="max-w-screen-sm w-full lg:max-w-screen-md">
-        <h2 className="text-xl font-mono my-8">Previous Bookings:</h2>
+      <div className="max-w-screen-sm w-full text-voyage-black lg:max-w-screen-md">
+        <h2 className="text-md font-roboto my-8 text-center">PREVIOUS BOOKINGS</h2>
         {previousBookings.length === 0 ? (
-          <p className="py-8">No previous bookings found.</p>
+          <p className="py-8 text-center">No previous bookings found.</p>
         ) : (
           <ul>
             {previousBookings.map((booking) => (

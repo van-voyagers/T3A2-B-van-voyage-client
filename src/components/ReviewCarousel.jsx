@@ -76,7 +76,7 @@ const ReviewCarousel = () => {
             {reviews.map((review) => (
               <div
                 key={review._id}
-                className="text-voyage-black font-roboto-mono text-sm lg:text-lg px-16"
+                className="text-voyage-black font-mono text-sm lg:text-lg px-16"
               >
                 <h3 className="mb-2">{review.booking.user.firstName}</h3>
                 <p className="mb-2 overflow-hidden break-words">
@@ -90,12 +90,12 @@ const ReviewCarousel = () => {
               </div>
             ))}
           </Carousel>
-          <p className="text-center text-voyage-black my-6 sm:my-8 font-roboto-mono">
+          <p className="text-center text-voyage-black my-6 sm:my-8 font-mono">
             ° ° °
           </p>
         </div>
       ) : (
-        <p className="text-voyage-black mb-10 font-roboto-mono">...LOADING...</p>
+        <p className="text-voyage-black mb-10 font-mono">...LOADING...</p>
       )}
     </div>
   );

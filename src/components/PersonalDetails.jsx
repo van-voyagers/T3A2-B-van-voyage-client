@@ -41,7 +41,7 @@ function PersonalDetails() {
 
   return (
     <div className="px-5">
-      <div className="text-voyage-black font-roboto-mono border border-voyage-black shadow-xl space-y-2 rounded-lg p-8 mx-auto max-w-prose">
+      <div className="text-voyage-black font-mono border border-voyage-black shadow-xl space-y-4 rounded-lg p-8 mx-auto max-w-prose">
         <p>
           <strong>Name: </strong>
           {user.name}
