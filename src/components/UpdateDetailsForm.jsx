@@ -10,17 +10,24 @@ function UpdateDetailsForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [dob, setDob] = useState("");
+  const [dobType, setDobType] = useState("text");
   const [driversLicense, setDriversLicense] = useState("");
   const navigate = useNavigate();
   const { token } = useContext(UserContext);
 
-  // Define API_URL based on the mode
   const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+
+  const handleDobFocus = (e) => setDobType("date");
+
+  const handleDobBlur = (e) => {
+    if (e.target.value === "") {
+      setDobType("text");
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Prepare data for request
     const updatedFields = {
       ...(firstName && { firstName }),
       ...(lastName && { lastName }),
@@ -42,14 +49,10 @@ function UpdateDetailsForm() {
         }
       );
 
-      // Log the response data for debugging
       console.log(response.data);
-
-      // Handle successful submission here
       alert("Successfully updated details!");
       navigate("/account");
     } catch (error) {
-      // Log the error response for debugging
       console.error(error.response);
     }
   };
@@ -86,10 +89,12 @@ function UpdateDetailsForm() {
 
             <div className="flex space-x-4">
               <input
-                type="date"
+                type={dobType}
                 id="dob"
                 name="dob"
                 value={dob}
+                onFocus={handleDobFocus}
+                onBlur={handleDobBlur}
                 onChange={(e) => setDob(e.target.value)}
                 placeholder="D.O.B..."
                 className="w-full h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
@@ -136,6 +141,7 @@ function UpdateDetailsForm() {
               className="w-1/2 h-10 pl-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
           </div>
+
           <div className="self-start">
             <button
               type="submit"
@@ -151,3 +157,4 @@ function UpdateDetailsForm() {
 }
 
 export default UpdateDetailsForm;
+
