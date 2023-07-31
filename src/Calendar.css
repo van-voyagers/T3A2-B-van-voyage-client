@@ -103,6 +103,8 @@
 .react-calendar__tile--rangeEnd, .react-calendar__tile--rangeStart {
   background: #36413Fe0 !important;
   color: #f8f8f8;
+
+
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -128,6 +130,7 @@
   color: #36413Fe0;
   opacity: 0.6;
   border-radius: 0;
+  text-decoration: line-through;
 }
 
 .react-calendar__tile:enabled:hover,
