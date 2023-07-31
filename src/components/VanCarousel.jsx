@@ -97,7 +97,7 @@ function VanCarousel({ vanName }) {
         autoPlay
       >
         {images.map((image, index) => (
-          <div key={index} className="w-full h-64">
+          <div key={index} className="w-full h-64 border-4 rounded-md">
             <img
               src={image}
               alt={`${vanName} ${index + 1}`}
