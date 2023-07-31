@@ -4,6 +4,7 @@ import Calendar from 'react-calendar'
 import '../Calendar.css'
 import axios from 'axios'
 import VanDescriptions from './VanDescriptions'
+import PersonalDetails from './PersonalDetails'
 
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
@@ -12,8 +13,12 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const [userDetails, setUserDetails] = useState(null)
 
-  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+  const API_URL =
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_API_URL_PROD
+      : import.meta.env.VITE_API_URL_DEV
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -44,7 +49,6 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
         setError('There was a problem fetching the booking data')
       })
   }, [vanID])
-  
 
   const handleDateChange = (date) => {
     const offset = date.getTimezoneOffset()
@@ -115,6 +119,23 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     )
   }
 
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`${API_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        setUserDetails(response.data)
+      } catch (error) {
+        console.error('Error fetching user details:', error)
+      }
+    }
+    fetchUserDetails()
+  }, [])
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -124,6 +145,20 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     if (!token) {
       alert('Please log in to make a booking')
       navigate('/login')
+      return
+    }
+
+    if (
+      !userDetails ||
+      !userDetails.firstName ||
+      !userDetails.lastName ||
+      !userDetails.dob ||
+      !userDetails.address ||
+      !userDetails.driversLicense ||
+      !userDetails.phoneNumber
+    ) {
+      alert('To make a booking, please update and complete your personal details')
+      navigate('/account')
       return
     }
 
@@ -206,17 +241,11 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             {totalPrice ? (
               <>
                 Total price:{' '}
-                <span className="text-3xl font-mono">
-                  ${totalPrice}
-                </span>{' '}
-                AUD
+                <span className="text-3xl font-mono">${totalPrice}</span> AUD
               </>
             ) : (
               <>
-                From{' '}
-                <span className="text-3xl font-mono">
-                  ${pricePerDay}
-                </span>{' '}
+                From <span className="text-3xl font-mono">${pricePerDay}</span>{' '}
                 AUD / day
               </>
             )}
