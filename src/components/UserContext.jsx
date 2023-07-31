@@ -4,24 +4,23 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // On initial render, try to get the token from local storage
   useEffect(() => {
     const tokenFromStorage = localStorage.getItem("token");
     if (tokenFromStorage) {
       setToken(tokenFromStorage);
     }
+    setLoading(false);
   }, []);
 
   const logout = () => {
-    // implement your logout logic here
-    // Clear token from local storage as well
     localStorage.removeItem('token');
     setToken(null);
   };
 
   return (
-    <UserContext.Provider value={{ token, setToken, logout }}>
+    <UserContext.Provider value={{ token, setToken, logout, loading }}>
       {props.children}
     </UserContext.Provider>
   );
@@ -34,5 +33,7 @@ export const useUserContext = () => {
   }
   return context;
 };
+
+
 
 

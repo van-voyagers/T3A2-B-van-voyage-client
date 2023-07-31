@@ -7,7 +7,7 @@ import { UserContext } from "../components/UserContext";
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { token, logout } = useContext(UserContext); // Extract the token and logout function from the UserContext
+  const { token, logout, loading } = useContext(UserContext); // Extract the loading state
 
   useEffect(() => {
     console.log("Token in header:", token);
@@ -21,6 +21,10 @@ function Header() {
     logout();
     navigate("/");
   };
+
+  if (loading) {
+    return null; // Or render a loading spinner
+  }
 
   return (
     <header className="bg-voyage-green shadow-xl p-4 flex justify-between items-center">
