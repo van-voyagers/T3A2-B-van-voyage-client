@@ -4,6 +4,7 @@ import Calendar from 'react-calendar'
 import '../Calendar.css'
 import axios from 'axios'
 import VanDescriptions from './VanDescriptions'
+import PersonalDetails from './PersonalDetails';
 
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
@@ -12,6 +13,8 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [totalPrice, setTotalPrice] = useState(null)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const [userDetails, setUserDetails] = useState(null);
+  
 
   const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
 
@@ -115,6 +118,23 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     )
   }
 
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserDetails(response.data);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+    fetchUserDetails();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -125,6 +145,11 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       alert('Please log in to make a booking')
       navigate('/login')
       return
+    }
+
+    if (!userDetails || !userDetails.firstName || !userDetails.lastName) {
+      alert('To make a booking, please update your personal details');
+      return;
     }
 
     const startDate = new Date(
