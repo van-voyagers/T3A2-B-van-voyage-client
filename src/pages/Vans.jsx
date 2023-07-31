@@ -21,7 +21,7 @@ function Vans() {
       <div className="text-center text-lg flex-grow">
         {selectedVan && (
           <div className="mb-8 md:hidden">
-            <p className="text-center my-16 text-lg text-voyage-black underline underline-offset-4 font-mono uppercase hidden md:block">
+            <p className="text-center my-16 text-2xl text-voyage-black underline underline-offset-4 font-mono uppercase hidden md:block">
               {selectedVan.vanName}
             </p>
             <VanCarousel vanName={selectedVan.vanName} />
@@ -30,7 +30,7 @@ function Vans() {
         )}
         {vans.map((van) => (
           <div key={van._id} className="my-16 hidden md:block">
-            <p className="text-center text-xl uppercase text-voyage-black underline underline-offset-4 font-mono">
+            <p className="text-center text-2xl uppercase text-voyage-black underline underline-offset-4 font-mono">
               {van.vanName}
             </p>
             <VanCarousel vanName={van.vanName} />
