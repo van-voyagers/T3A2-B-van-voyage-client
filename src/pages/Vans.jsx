@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
@@ -6,9 +6,12 @@ import VansSelect from '../components/VansSelect'
 import MobileVanSelect from '../components/MobileVanSelect'
 import VanCarousel from '../components/VanCarousel' // import the VanCarousel
 
+
+
 function Vans() {
   const [selectedVan, setSelectedVan] = useState(null)
   const [vans, setVans] = useState([])
+
 
   return (
     <div className="flex flex-col min-h-screen">

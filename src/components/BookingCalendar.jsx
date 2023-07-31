@@ -4,7 +4,7 @@ import Calendar from 'react-calendar'
 import '../Calendar.css'
 import axios from 'axios'
 import VanDescriptions from './VanDescriptions'
-import PersonalDetails from './PersonalDetails'
+
 
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
