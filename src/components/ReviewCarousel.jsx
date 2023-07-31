@@ -73,22 +73,28 @@ const ReviewCarousel = () => {
               )
             }
           >
-            {reviews.map((review) => (
-              <div
-                key={review._id}
-                className="text-voyage-black font-mono text-sm lg:text-lg px-16"
-              >
-                <h3 className="mb-2">{review.booking.user.firstName}</h3>
-                <p className="mb-2 overflow-hidden break-words">
-                  "{review.comment}"
-                </p>
-                <StarRatings
-                  rating={review.rating}
-                  starDimension="20px"
-                  starSpacing="5px"
-                />
-              </div>
-            ))}
+            {reviews.map((review) => {
+              if (review.booking && review.booking.user) {
+                return (
+                  <div
+                    key={review._id}
+                    className="text-voyage-black font-mono text-sm lg:text-lg px-16"
+                  >
+                    <h3 className="mb-2">{review.booking.user.firstName}</h3>
+                    <p className="mb-2 overflow-hidden break-words">
+                      "{review.comment}"
+                    </p>
+                    <StarRatings
+                      rating={review.rating}
+                      starDimension="20px"
+                      starSpacing="5px"
+                    />
+                  </div>
+                );
+              } else {
+                return null; // or some fallback UI
+              }
+            })}
           </Carousel>
           <p className="text-center text-voyage-black my-6 sm:my-8 font-mono">
             ° ° °
@@ -102,4 +108,3 @@ const ReviewCarousel = () => {
 };
 
 export default ReviewCarousel;
-

@@ -1,88 +1,90 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function BookingHistory() {
-  const [bookings, setBookings] = useState([])
-  const [upcomingBookings, setUpcomingBookings] = useState([])
-  const [previousBookings, setPreviousBookings] = useState([])
+  const [bookings, setBookings] = useState([]);
+  const [upcomingBookings, setUpcomingBookings] = useState([]);
+  const [previousBookings, setPreviousBookings] = useState([]);
 
   const API_URL =
-    import.meta.env.MODE === 'production'
+    import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
-      : import.meta.env.VITE_API_URL_DEV
+      : import.meta.env.VITE_API_URL_DEV;
 
   useEffect(() => {
     const fetchUserBookings = async () => {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
           // Redirect to login page if the user is not logged in
           // Implement your own logic for handling unauthenticated users
-          return
+          return;
         }
 
         const response = await axios.get(`${API_URL}/bookings/my-bookings`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        });
 
-        setBookings(response.data)
+        setBookings(response.data);
       } catch (error) {
-        console.error('Error fetching user bookings:', error)
+        console.error("Error fetching user bookings:", error);
       }
-    }
+    };
 
-    fetchUserBookings()
-  }, [])
+    fetchUserBookings();
+  }, []);
 
   useEffect(() => {
     // Separate bookings into previous and upcoming arrays based on their end dates
-    const today = new Date()
+    const today = new Date();
     const upcoming = bookings.filter(
       (booking) => new Date(booking.startDate) > today
-    )
+    );
     const previous = bookings.filter(
       (booking) => new Date(booking.startDate) <= today
-    )
+    );
 
-    setUpcomingBookings(upcoming)
-    setPreviousBookings(previous)
-  }, [bookings])
+    setUpcomingBookings(upcoming);
+    setPreviousBookings(previous);
+  }, [bookings]);
 
   function calculateNumberOfDays(startDate, endDate) {
-    const oneDay = 24 * 60 * 60 * 1000 // One day in milliseconds
-    const start = new Date(startDate)
-    const end = new Date(endDate)
-    const diffDays = Math.round(Math.abs((start - end) / oneDay)) + 1 // Add 1 to include both start and end days
-    return diffDays
+    const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffDays = Math.round(Math.abs((start - end) / oneDay)) + 1; // Add 1 to include both start and end days
+    return diffDays;
   }
 
   const handleDeleteBooking = async (bookingId) => {
     try {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token");
       if (!token) {
         // Redirect to login page if the user is not logged in
         // Implement your own logic for handling unauthenticated users
-        return
+        return;
       }
 
       await axios.delete(`${API_URL}/bookings/${bookingId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
+
+      // Remove the deleted booking from the state
+      const updatedBookings = bookings.filter(
+        (booking) => booking._id !== bookingId
+      );
+      setBookings(updatedBookings);
 
       // Show alert for "Booking cancelled"
-      alert('Booking cancelled')
-      
-      // After successful deletion, fetch the updated bookings
-      location.reload()
-      
+      alert("Booking cancelled");
     } catch (error) {
-      console.error('Error deleting booking:', error)
+      console.error("Error deleting booking:", error);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col p-8 px-5 font-mono items-center text-voyage-black leading-8">
@@ -104,15 +106,15 @@ function BookingHistory() {
                   <strong>Van:</strong> {booking.van.vanName}
                 </p>
                 <p>
-                  <strong>Start date:</strong>{' '}
+                  <strong>Start date:</strong>{" "}
                   {new Date(booking.startDate).toDateString()}
                 </p>
                 <p>
-                  <strong>End date:</strong>{' '}
+                  <strong>End date:</strong>{" "}
                   {new Date(booking.endDate).toDateString()}
                 </p>
                 <p>
-                  <strong>No. of Days:</strong>{' '}
+                  <strong>No. of Days:</strong>{" "}
                   {calculateNumberOfDays(booking.startDate, booking.endDate)}
                 </p>
                 <p>
@@ -137,7 +139,9 @@ function BookingHistory() {
         )}
       </div>
       <div className="max-w-screen-sm w-full text-voyage-black lg:max-w-screen-md">
-        <h2 className="text-md font-roboto my-8 text-center">PREVIOUS BOOKINGS</h2>
+        <h2 className="text-md font-roboto my-8 text-center">
+          PREVIOUS BOOKINGS
+        </h2>
         {previousBookings.length === 0 ? (
           <p className="py-8 text-center">No previous bookings found.</p>
         ) : (
@@ -151,11 +155,11 @@ function BookingHistory() {
                   <strong>Van:</strong> {booking.van.vanName}
                 </p>
                 <p>
-                  <strong>Start date:</strong>{' '}
+                  <strong>Start date:</strong>{" "}
                   {new Date(booking.startDate).toDateString()}
                 </p>
                 <p>
-                  <strong>End date:</strong>{' '}
+                  <strong>End date:</strong>{" "}
                   {new Date(booking.endDate).toDateString()}
                 </p>
                 <p className="py-4">
@@ -174,7 +178,7 @@ function BookingHistory() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default BookingHistory
+export default BookingHistory;

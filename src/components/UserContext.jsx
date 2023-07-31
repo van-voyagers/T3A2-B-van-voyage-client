@@ -3,20 +3,21 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const initialToken = localStorage.getItem("token");
+  const [token, setToken] = useState(initialToken);
+  const [loading, setLoading] = useState(false); // set loading to false initially
 
   useEffect(() => {
-    const tokenFromStorage = localStorage.getItem("token");
-    if (tokenFromStorage) {
-      setToken(tokenFromStorage);
+    // Save token in local storage every time it changes
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
     }
-    setLoading(false);
-  }, []);
+  }, [token]);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
+    setToken(null); // This will trigger useEffect to remove token from localStorage
   };
 
   return (
@@ -33,6 +34,7 @@ export const useUserContext = () => {
   }
   return context;
 };
+
 
 
 
