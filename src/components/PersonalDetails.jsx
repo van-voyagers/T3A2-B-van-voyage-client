@@ -3,20 +3,23 @@ import axios from "axios";
 
 function PersonalDetails() {
   const [user, setUser] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     dob: "",
     email: "",
     phoneNumber: "",
     address: "",
-    driversLicense: ""
+    driversLicense: "",
   });
 
-  // Define API_URL based on the mode
-  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+  const API_URL =
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_API_URL_PROD
+      : import.meta.env.VITE_API_URL_DEV;
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token"); // replace with your token retrieval logic
+      const token = localStorage.getItem("token");
       const result = await axios.get(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -29,8 +32,9 @@ function PersonalDetails() {
     fetchData();
   }, []);
 
-  // Function to format the date in the form 'DD-MM-YYYY'
   const formatDate = (date) => {
+    if (!date) return "";
+
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, "0");
     const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are zero based
@@ -43,8 +47,12 @@ function PersonalDetails() {
     <div className="px-5">
       <div className="text-voyage-black font-mono border border-voyage-black shadow-xl space-y-4 rounded-lg p-8 mx-auto max-w-prose">
         <p>
-          <strong>Name: </strong>
-          {user.name}
+          <strong>First Name: </strong>
+          {user.firstName || ""}
+        </p>
+        <p>
+          <strong>Last Name: </strong>
+          {user.lastName || ""}
         </p>
         <p>
           <strong>Date of Birth: </strong>
@@ -52,19 +60,19 @@ function PersonalDetails() {
         </p>
         <p>
           <strong>Email: </strong>
-          {user.email}
+          {user.email || ""}
         </p>
         <p>
           <strong>Phone Number: </strong>
-          {user.phoneNumber} 
+          {user.phoneNumber || ""}
         </p>
         <p>
           <strong>Address: </strong>
-          {user.address}
+          {user.address || ""}
         </p>
         <p>
           <strong>Driver's License: </strong>
-          {user.driversLicense}
+          {user.driversLicense || ""}
         </p>
       </div>
     </div>
