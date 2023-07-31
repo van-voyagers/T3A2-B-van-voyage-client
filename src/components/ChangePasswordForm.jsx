@@ -11,7 +11,10 @@ function ChangePasswordForm() {
   const { token, setToken } = useContext(UserContext);
 
   // Define API_URL based on the mode
-  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+  const API_URL =
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_API_URL_PROD
+      : import.meta.env.VITE_API_URL_DEV;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +42,9 @@ function ChangePasswordForm() {
 
       if (response.data.message === "Password changed successfully") {
         alert("Successfully updated password!");
-        navigate("/account");
+        setToken(null); // You should also clear token after password change because it might become invalid.
+        localStorage.removeItem("token"); // Clear the token from local storage too.
+        navigate("/login"); // Navigate to login page.
       }
     } catch (error) {
       console.error(error.response);
@@ -62,14 +67,11 @@ function ChangePasswordForm() {
     ) {
       try {
         console.log("Token before request: ", token);
-        const response = await axios.delete(
-          `${API_URL}/users/delete`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.delete(`${API_URL}/users/delete`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         console.log(response.data);
         if (response.data.message === "Account deleted successfully") {

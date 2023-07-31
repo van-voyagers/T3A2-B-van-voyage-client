@@ -52,6 +52,7 @@ function UpdateDetailsForm() {
       console.log(response.data);
       alert("Successfully updated details!");
       navigate("/account");
+      window.location.reload();
     } catch (error) {
       console.error(error.response);
     }
