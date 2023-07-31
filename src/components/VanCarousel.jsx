@@ -87,7 +87,7 @@ function VanCarousel({ vanName }) {
   }
 
   return (
-    <div className="max-w-sm mx-auto mt-16">
+    <div className="max-w-sm mx-auto mt-16 sm:max-w-lg md:max-w-2xl">
       <Carousel
         showThumbs={true}
         showIndicators={false}
@@ -97,7 +97,7 @@ function VanCarousel({ vanName }) {
         autoPlay
       >
         {images.map((image, index) => (
-          <div key={index} className="w-full h-64 border-4 rounded-md">
+          <div key={index} className="w-full sm:h-96 h-64 border-4 rounded-md">
             <img
               src={image}
               alt={`${vanName} ${index + 1}`}
