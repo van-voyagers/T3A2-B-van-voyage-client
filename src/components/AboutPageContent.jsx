@@ -3,7 +3,7 @@ import React from "react";
 function AboutPageContent() {
   return (
     <div className="mx-auto px-6 sm:px-16 md:px-16 lg:px-44 max-w-screen-xl text-center space-y-8 mb-8 lg:mb-14 text-voyage-black text-sm sm:text-sm md:text-md lg:text-lg">
-      <h1 className="font-roboto font-normal pt-8 lg:pt-12">
+      <h1 className="font-roboto font-normal lg:text-xl pt-8 lg:pt-12">
         ABOUT VAN VOYAGE
       </h1>
       <p className="font-mono text-xs sm:text-sm md:text-md lg:text-md">

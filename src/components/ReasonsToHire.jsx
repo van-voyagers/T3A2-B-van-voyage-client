@@ -36,7 +36,7 @@ function ReasonsToHire() {
 
   return (
     <div className="text-voyage-black text-center mb-10 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-48 2xl:px-64 grid gap-8 grid-cols-2 lg:grid-cols-3">
-      <h1 className="font-roboto font-normal pt-8 pb-4 lg:pt-12 col-span-full text-sm sm:text-sm lg:text-lg">
+      <h1 className="font-roboto font-normal pt-8 pb-4 lg:pt-12 col-span-full text-sm sm:text-sm lg:text-xl">
         REASONS TO HIRE WITH VAN VOYAGE
       </h1>
       {reasonsData.map((reason, index) => (

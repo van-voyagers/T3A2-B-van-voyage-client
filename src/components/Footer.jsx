@@ -13,7 +13,7 @@ function Footer() {
         ©2023 VAN VOYAGE
         <span 
         className="text-voyage-grey font-roboto font-extralight text-[12px] text-right md:flex justify-end -translate-y-4 translate-x-2 -mb-8 italic hidden">
-          created for a final assignment by &nbsp; 
+          Created for a final assignment by &nbsp; 
         <a href="https://github.com/jordanaston">JA</a>&nbsp;&&nbsp;
         <a href="https://github.com/JRBoland">JB</a>
         </span>

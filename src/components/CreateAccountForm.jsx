@@ -13,6 +13,11 @@ function CreateAccountForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters long.');
+      return;
+    }
+
     try {
       console.log(API_URL);
       const response = await axios.post(`${API_URL}/users/create-account`, { email, password });
