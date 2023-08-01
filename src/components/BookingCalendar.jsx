@@ -5,7 +5,6 @@ import '../Calendar.css'
 import axios from 'axios'
 import VanDescriptions from './VanDescriptions'
 
-
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
   const [selectedEndDate, setSelectedEndDate] = useState(null)
@@ -148,6 +147,25 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       return
     }
 
+    const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
+    const diffDays = Math.round(
+      Math.abs((selectedEndDate - selectedStartDate) / oneDay + 1)
+    )
+    console.log(diffDays)
+    // Check if booking is less than 2 days
+    if (diffDays <= 2) {
+      alert('A booking must be at least 3 days in duration.')
+      return
+    }
+
+    // Check if booking is more than 21 days
+    if (diffDays > 21) {
+      alert(
+        'A booking cannot exceed 3 weeks in duration. If you would like to book for longer, please contact us through the contact form.'
+      )
+      return
+    }
+
     if (
       !userDetails ||
       !userDetails.firstName ||
@@ -157,7 +175,9 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       !userDetails.driversLicense ||
       !userDetails.phoneNumber
     ) {
-      alert('To make a booking, please update and complete your personal details')
+      alert(
+        'To make a booking, please update and complete your personal details'
+      )
       navigate('/account')
       return
     }
