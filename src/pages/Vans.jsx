@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import BookingCalendar from '../components/BookingCalendar'
 import VansSelect from '../components/VansSelect'
 import MobileVanSelect from '../components/MobileVanSelect'
-import VanCarousel from '../components/VanCarousel' // import the VanCarousel
+import VanCarousel from '../components/VanCarousel'
 
 
 
