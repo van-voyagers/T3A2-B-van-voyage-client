@@ -1,4 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 
 export const UserContext = createContext();
 
@@ -8,9 +9,18 @@ export const UserProvider = (props) => {
   const [loading, setLoading] = useState(false); // set loading to false initially
 
   useEffect(() => {
-    // Save token in local storage every time it changes
     if (token) {
-      localStorage.setItem('token', token);
+      // decode token and get expiration date
+      const decodedToken = jwtDecode(token);
+      const expirationDate = new Date(decodedToken.exp * 1000);
+
+      if (expirationDate < new Date()) {
+        // token is expired
+        logout();
+      } else {
+        // token is valid
+        localStorage.setItem('token', token);
+      }
     } else {
       localStorage.removeItem('token');
     }
@@ -34,6 +44,7 @@ export const useUserContext = () => {
   }
   return context;
 };
+
 
 
 
