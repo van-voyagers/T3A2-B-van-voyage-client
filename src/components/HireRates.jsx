@@ -8,7 +8,7 @@ function HireRates() {
 
   return (
     <div className="mx-auto px-6 sm:px-16 md:px-16 lg:px-44 max-w-screen-xl text-center space-y-8 mb-8 lg:mb-12 text-voyage-black text-sm sm:text-sm md:text-md lg:text-lg">
-      <h1 className="font-mono pt-8 lg:pt-12 text-3xl">HIRE RATES</h1>
+      <h1 className="font-mono pt-8 lg:pt-12 text-xl">HIRE RATES</h1>
       <p className="font-mono text-xs sm:text-sm md:text-md lg:text-lg">
         At Van Voyage, we believe that freedom on the road shouldn't cost the
         earth. Our rates are designed to provide a perfect balance between
@@ -18,7 +18,7 @@ function HireRates() {
         <br></br>
         <br></br>
         Each of our vans has its unique charm and features. To get more specific
-        details and understand what best suits your needs, click on the images
+        details and understand what best suits your needs, click on the button
         below. This will take you to the bookings page where you can see the
         specifics of each van and make an informed choice. Make your selection
         and let's get you on the road.
@@ -33,34 +33,34 @@ function HireRates() {
         </button>
 
       <div className="flex flex-wrap justify-center mt-8 sm:mt-12 space-y-4 md:space-y-0 font-mono">
-        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0 hover:opacity-90 ">
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={Marigold1}
             alt="Marigold"
             className="w-full shadow-xl my-8"
 
           />
-          <h2 className="text-center hover:underline hover:opacity-90">
+          <h2 className="text-center">
             MARIGOLD
           </h2>
         </div>
-        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0 t hover:opacity-90">
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={Eddie1}
             alt="Eddie"
             className="w-full shadow-xl my-8"
           />
-          <h2 className="text-center hover:underline hover:opacity-90">
+          <h2 className="text-center">
             EDDIE
           </h2>
         </div>
-        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0 hover:opacity-90">
+        <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={VengaBus1}
             alt="Venga Bus 1"
             className="w-full shadow-xl my-8"
           />
-          <h2 className="text-center hover:underline hover:opacity-90">
+          <h2 className="text-center">
             VENGA BUS
           </h2>
         </div>
