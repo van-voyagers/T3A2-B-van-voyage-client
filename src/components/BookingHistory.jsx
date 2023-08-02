@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function BookingHistory() {
-  const [bookings, setBookings] = useState([]);
-  const [upcomingBookings, setUpcomingBookings] = useState([]);
-  const [previousBookings, setPreviousBookings] = useState([]);
+  // States to store bookings data
+  const [bookings, setBookings] = useState([]); // All bookings
+  const [upcomingBookings, setUpcomingBookings] = useState([]); // Upcoming bookings
+  const [previousBookings, setPreviousBookings] = useState([]); // Previous bookings
 
   const API_URL =
     import.meta.env.MODE === "production"
@@ -12,27 +13,44 @@ function BookingHistory() {
       : import.meta.env.VITE_API_URL_DEV;
 
   useEffect(() => {
+    // Fetch user bookings when the component mounts
     const fetchUserBookings = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          // Redirect to login page if the user is not logged in
+          // Redirect to the login page if the user is not logged in
           return;
         }
 
+        // Send a GET request to the server to fetch user bookings
         const response = await axios.get(`${API_URL}/bookings/my-bookings`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        setBookings(response.data);
+        setBookings(response.data); // Set all bookings to the state
+
+        // Separate upcoming and previous bookings
+        const today = new Date();
+        const upcoming = [];
+        const previous = [];
+        response.data.forEach((booking) => {
+          if (new Date(booking.endDate) >= today) {
+            upcoming.push(booking);
+          } else {
+            previous.push(booking);
+          }
+        });
+
+        setUpcomingBookings(upcoming); // Set upcoming bookings to the state
+        setPreviousBookings(previous); // Set previous bookings to the state
       } catch (error) {
         console.error("Error fetching user bookings:", error);
       }
     };
 
-    fetchUserBookings();
+    fetchUserBookings(); // Call the function to fetch user bookings
   }, []);
 
   useEffect(() => {
@@ -40,31 +58,34 @@ function BookingHistory() {
     const today = new Date();
     const upcoming = bookings.filter(
       (booking) => new Date(booking.startDate) > today
-    );
+    ); // Filter bookings with start date greater than current date
     const previous = bookings.filter(
       (booking) => new Date(booking.startDate) <= today
-    );
+    ); // Filter bookings with start date less than or equal to current date
 
-    setUpcomingBookings(upcoming);
-    setPreviousBookings(previous);
+    // Update the states with filtered arrays
+    setUpcomingBookings(upcoming); // Set upcoming bookings to the state
+    setPreviousBookings(previous); // Set previous bookings to the state
   }, [bookings]);
 
+  // Function to calculate the number of days between two dates
   function calculateNumberOfDays(startDate, endDate) {
     const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const diffDays = Math.round(Math.abs((start - end) / oneDay)) + 1; // Add 1 to include both start and end days
-    return diffDays;
+    const diffDays = Math.round(Math.abs((start - end) / oneDay)) + 1; // Calculate the difference in days and add 1 to include both start and end days
+    return diffDays; // Return the number of days
   }
 
   const handleDeleteBooking = async (bookingId) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        // Redirect to login page if the user is not logged in
+        // Redirect to the login page if the user is not logged in
         return;
       }
 
+      // Make a DELETE request to the server to delete the booking with the given bookingId
       await axios.delete(`${API_URL}/bookings/${bookingId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -75,9 +96,9 @@ function BookingHistory() {
       const updatedBookings = bookings.filter(
         (booking) => booking._id !== bookingId
       );
-      setBookings(updatedBookings);
+      setBookings(updatedBookings); // Update the state with the filtered bookings array
 
-      // Show alert for "Booking cancelled"
+      // Show an alert to notify the user that the booking was cancelled
       alert("Booking cancelled");
     } catch (error) {
       console.error("Error deleting booking:", error);
