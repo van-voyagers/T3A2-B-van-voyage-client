@@ -11,14 +11,12 @@ function Footer() {
       />
       <p className="text-voyage-white font-roboto font-extralight text-[8px] w-full text-center mt-2">
         ©2023 VAN VOYAGE
-        <span 
-        className="text-voyage-grey font-roboto font-extralight text-[12px] text-right md:flex justify-end -translate-y-4 translate-x-2 -mb-8 italic hidden">
-          Created for a final assignment by &nbsp; 
-        <a href="https://github.com/jordanaston">JA</a>&nbsp;&&nbsp;
-        <a href="https://github.com/JRBoland">JB</a>
+        <span className="text-voyage-grey font-roboto font-extralight text-[12px] text-right md:flex justify-end -translate-y-4 translate-x-2 -mb-8 italic hidden">
+          Created for a final assignment by &nbsp;
+          <a href="https://github.com/jordanaston">JA</a>&nbsp;&&nbsp;
+          <a href="https://github.com/JRBoland">JB</a>
         </span>
       </p>
-      
     </footer>
   );
 }

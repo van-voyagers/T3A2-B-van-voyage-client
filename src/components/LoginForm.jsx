@@ -10,7 +10,10 @@ function LoginForm() {
   const { token, setToken } = useContext(UserContext);
 
   // Define API_URL based on the mode
-  const API_URL = import.meta.env.MODE === 'production' ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+  const API_URL =
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_API_URL_PROD
+      : import.meta.env.VITE_API_URL_DEV;
 
   useEffect(() => {
     console.log("Token before update:", token);

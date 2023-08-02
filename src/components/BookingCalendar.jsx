@@ -1,169 +1,169 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Calendar from 'react-calendar'
-import '../Calendar.css'
-import axios from 'axios'
-import VanDescriptions from './VanDescriptions'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Calendar from "react-calendar";
+import "../Calendar.css";
+import axios from "axios";
+import VanDescriptions from "./VanDescriptions";
 
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
-  const [selectedStartDate, setSelectedStartDate] = useState(null)
-  const [selectedEndDate, setSelectedEndDate] = useState(null)
-  const [bookedDates, setBookedDates] = useState([])
-  const [totalPrice, setTotalPrice] = useState(null)
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
-  const [userDetails, setUserDetails] = useState(null)
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [bookedDates, setBookedDates] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState(null);
 
   const API_URL =
-    import.meta.env.MODE === 'production'
+    import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
-      : import.meta.env.VITE_API_URL_DEV
+      : import.meta.env.VITE_API_URL_DEV;
 
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   useEffect(() => {
-    console.log('Fetching bookings for van:', vanID)
+    console.log("Fetching bookings for van:", vanID);
     axios
       .get(`${API_URL}/bookings/van/${vanID}`)
       .then((response) => {
-        const bookings = response.data
+        const bookings = response.data;
         const dates = bookings.flatMap((booking) => {
-          const start = new Date(booking.startDate)
-          const end = new Date(booking.endDate)
-          const dateArray = []
+          const start = new Date(booking.startDate);
+          const end = new Date(booking.endDate);
+          const dateArray = [];
           for (
             let date = start;
             date <= end;
             date.setDate(date.getDate() + 1)
           ) {
-            dateArray.push(new Date(date))
+            dateArray.push(new Date(date));
           }
-          return dateArray
-        })
-        setBookedDates(dates)
+          return dateArray;
+        });
+        setBookedDates(dates);
       })
       .catch((error) => {
-        console.error('Error fetching bookings:', error)
-        setError('There was a problem fetching the booking data')
-      })
-  }, [vanID])
+        console.error("Error fetching bookings:", error);
+        setError("There was a problem fetching the booking data");
+      });
+  }, [vanID]);
 
   const handleDateChange = (date) => {
-    const offset = date.getTimezoneOffset()
-    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000)
+    const offset = date.getTimezoneOffset();
+    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
 
     if (!selectedStartDate) {
-      setSelectedStartDate(adjustedDate)
+      setSelectedStartDate(adjustedDate);
     } else if (!selectedEndDate && adjustedDate > selectedStartDate) {
-      setSelectedEndDate(adjustedDate)
+      setSelectedEndDate(adjustedDate);
     } else {
-      setSelectedStartDate(null)
-      setSelectedEndDate(null)
+      setSelectedStartDate(null);
+      setSelectedEndDate(null);
     }
-  }
+  };
 
   useEffect(() => {
     if (selectedStartDate) {
-      document.getElementById('end-date-input').min = selectedStartDate
+      document.getElementById("end-date-input").min = selectedStartDate
         .toISOString()
-        .substring(0, 10)
+        .substring(0, 10);
     }
-  }, [selectedStartDate])
+  }, [selectedStartDate]);
 
   useEffect(() => {
     // This function calculates the total price on the client side when the selected start and end dates change
     function calculateTotalPrice() {
       if (selectedStartDate && selectedEndDate) {
-        const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         const diffDays = Math.round(
           Math.abs((selectedEndDate - selectedStartDate) / oneDay + 1)
-        )
+        );
         if (diffDays > 1) {
           // If date range is more than one day
-          setTotalPrice(diffDays * pricePerDay)
+          setTotalPrice(diffDays * pricePerDay);
         } else {
-          setTotalPrice(null) // Force to null if date range is one day or less
+          setTotalPrice(null); // Force to null if date range is one day or less
         }
       } else {
-        setTotalPrice(null) // Force to null if no date range is selected
+        setTotalPrice(null); // Force to null if no date range is selected
       }
     }
-    calculateTotalPrice()
-  }, [selectedStartDate, selectedEndDate, pricePerDay])
+    calculateTotalPrice();
+  }, [selectedStartDate, selectedEndDate, pricePerDay]);
 
   function toLocalISOString(date) {
     var tzo = -date.getTimezoneOffset(),
-      dif = tzo >= 0 ? '+' : '-',
+      dif = tzo >= 0 ? "+" : "-",
       pad = function (num) {
-        var norm = Math.floor(Math.abs(num))
-        return (norm < 10 ? '0' : '') + norm
-      }
+        var norm = Math.floor(Math.abs(num));
+        return (norm < 10 ? "0" : "") + norm;
+      };
     return (
       date.getFullYear() +
-      '-' +
+      "-" +
       pad(date.getMonth() + 1) +
-      '-' +
+      "-" +
       pad(date.getDate()) +
-      'T' +
+      "T" +
       pad(date.getHours()) +
-      ':' +
+      ":" +
       pad(date.getMinutes()) +
-      ':' +
+      ":" +
       pad(date.getSeconds()) +
       dif +
       pad(tzo / 60) +
-      ':' +
+      ":" +
       pad(tzo % 60)
-    )
+    );
   }
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         const response = await axios.get(`${API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-        setUserDetails(response.data)
+        });
+        setUserDetails(response.data);
       } catch (error) {
-        console.error('Error fetching user details:', error)
+        console.error("Error fetching user details:", error);
       }
-    }
-    fetchUserDetails()
-  }, [])
+    };
+    fetchUserDetails();
+  }, []);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const token = localStorage.getItem('token') // assuming token is stored in local storage?
+    const token = localStorage.getItem("token"); // assuming token is stored in local storage?
 
     // Check if token exists before making a booking
     if (!token) {
-      alert('Please log in to make a booking')
-      navigate('/login')
-      return
+      alert("Please log in to make a booking");
+      navigate("/login");
+      return;
     }
 
-    const oneDay = 24 * 60 * 60 * 1000 // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const diffDays = Math.round(
       Math.abs((selectedEndDate - selectedStartDate) / oneDay + 1)
-    )
-    console.log(diffDays)
+    );
+    console.log(diffDays);
     // Check if booking is less than 2 days
     if (diffDays <= 2) {
-      alert('A booking must be at least 3 days in duration.')
-      return
+      alert("A booking must be at least 3 days in duration.");
+      return;
     }
 
     // Check if booking is more than 21 days
     if (diffDays > 21) {
       alert(
-        'A booking cannot exceed 3 weeks in duration. If you would like to book for longer, please contact us through the contact form.'
-      )
-      return
+        "A booking cannot exceed 3 weeks in duration. If you would like to book for longer, please contact us through the contact form."
+      );
+      return;
     }
 
     if (
@@ -176,26 +176,26 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       !userDetails.phoneNumber
     ) {
       alert(
-        'To make a booking, please update and complete your personal details'
-      )
-      navigate('/account')
-      return
+        "To make a booking, please update and complete your personal details"
+      );
+      navigate("/account");
+      return;
     }
 
     const startDate = new Date(
       selectedStartDate.getTime() +
         selectedStartDate.getTimezoneOffset() * 60 * 1000
-    )
+    );
     const endDate = new Date(
       selectedEndDate.getTime() +
         selectedEndDate.getTimezoneOffset() * 60 * 1000
-    )
+    );
 
-    console.log('Sending booking:', {
+    console.log("Sending booking:", {
       vanID,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
-    }) // Added this line
+    }); // Added this line
 
     try {
       const response = await axios
@@ -220,32 +220,32 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             Start date - ${new Date(startDate).toDateString()} \n
             End date - ${new Date(endDate).toDateString()}\n
             Total Price: $${totalPrice}`
-          )
-          navigate('/account')
+          );
+          navigate("/account");
         })
         .catch((error) => {
           // Check if the error response from server is 401 Unauthorized
           if (error.response && error.response.status === 401) {
-            alert('Your session has expired, please log in again to continue')
-            localStorage.removeItem('token') // Optional: remove the invalid token
-            navigate('/login') // Assuming you have a login page at this route
+            alert("Your session has expired, please log in again to continue");
+            localStorage.removeItem("token"); // Optional: remove the invalid token
+            navigate("/login"); // Assuming you have a login page at this route
           } else if (error.response && error.response.status === 400) {
             alert(
-              'The van is not available for the dates you have selected, please check your dates and try again.'
-            )
+              "The van is not available for the dates you have selected, please check your dates and try again."
+            );
 
             // Showing alert for van not available
           } else {
-            console.error(error)
+            console.error(error);
           }
-        })
+        });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   if (error) {
-    return <div>{error}</div>
+    return <div>{error}</div>;
   }
 
   return (
@@ -260,12 +260,12 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           <p className="font-mono pt-6 pb-6">
             {totalPrice ? (
               <>
-                Total price:{' '}
+                Total price:{" "}
                 <span className="text-3xl font-mono">${totalPrice}</span> AUD
               </>
             ) : (
               <>
-                From <span className="text-3xl font-mono">${pricePerDay}</span>{' '}
+                From <span className="text-3xl font-mono">${pricePerDay}</span>{" "}
                 AUD / day
               </>
             )}
@@ -284,13 +284,13 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
                 value={
                   selectedStartDate
                     ? selectedStartDate.toISOString().substring(0, 10)
-                    : ''
+                    : ""
                 }
                 onChange={(e) => {
-                  let date = new Date(e.target.value)
-                  const offset = date.getTimezoneOffset()
-                  date = new Date(date.getTime() - offset * 60 * 1000)
-                  setSelectedStartDate(date)
+                  let date = new Date(e.target.value);
+                  const offset = date.getTimezoneOffset();
+                  date = new Date(date.getTime() - offset * 60 * 1000);
+                  setSelectedStartDate(date);
                 }}
                 className="font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
               />
@@ -308,13 +308,13 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
                 value={
                   selectedEndDate
                     ? selectedEndDate.toISOString().substring(0, 10)
-                    : ''
+                    : ""
                 }
                 onChange={(e) => {
-                  let date = new Date(e.target.value)
-                  const offset = date.getTimezoneOffset()
-                  date = new Date(date.getTime() - offset * 60 * 1000)
-                  setSelectedEndDate(date)
+                  let date = new Date(e.target.value);
+                  const offset = date.getTimezoneOffset();
+                  date = new Date(date.getTime() - offset * 60 * 1000);
+                  setSelectedEndDate(date);
                 }}
                 min={selectedStartDate?.toISOString().substring(0, 10)}
                 className="font-mono text-center items-center bg-voyage-grey border border-voyage-green rounded-md p-1 shadow-md"
@@ -330,15 +330,15 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
                 : null
             }
             tileDisabled={({ date }) => {
-              date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
-              const formattedDate = date.setHours(0, 0, 0, 0) // Removes the time part of the date
+              date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+              const formattedDate = date.setHours(0, 0, 0, 0); // Removes the time part of the date
               return (
                 formattedDate < today ||
                 bookedDates.some(
                   (disabledDate) =>
                     disabledDate.setHours(0, 0, 0, 0) === formattedDate
                 )
-              )
+              );
             }}
           />
           <button
@@ -346,8 +346,8 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             disabled={!selectedStartDate || !selectedEndDate}
             className={`text-white font-roboto font-light rounded px-4 py-2 border border-voyage-green shadow-md ${
               !selectedStartDate || !selectedEndDate
-                ? 'text-voyage-green bg-voyage-black cursor-not-allowed'
-                : 'bg-voyage-green'
+                ? "text-voyage-green bg-voyage-black cursor-not-allowed"
+                : "bg-voyage-green"
             }`}
           >
             BOOK NOW
@@ -355,7 +355,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default BookingCalendar
+export default BookingCalendar;

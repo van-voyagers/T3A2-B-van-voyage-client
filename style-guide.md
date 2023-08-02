@@ -7,12 +7,15 @@ This document outlines the style guidelines for this project.
 Here are the primary colors used in the project:
 
 **Features:**
+
 - Voyage Green: `#36413F`
 
 **Background:**
+
 - Voyage Grey: `#D9D9D9`
 
 **Text:**
+
 - Voyage Black: `#2D2D2D`
 - Voyage White: `#F8F8F8`
 
@@ -26,7 +29,7 @@ Examples of how to use the colors in this project:
 <div class="bg-voyage-green">This is a div with Voyage Green background</div>
 <div class="text-voyage-black">This is text with Voyage Black color</div>
 <div class="border-voyage-grey">This is a div with Voyage Grey border</div>
-``````
+```
 
 ## Typography
 
@@ -50,20 +53,14 @@ Examples of how to use the fonts in this project:
 <div class="font-roboto font-black">This is Roboto Black</div>
 ```
 
-
 ## Border Radius
 
 Use the following border-radius value:
 
 - Elements: `rounded`
 
-
 ## Shadows
 
 Use the following shadow value:
 
 - Forms etc: `shadow-lg`
-
-
-
-

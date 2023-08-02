@@ -73,7 +73,11 @@ function MobileMenu() {
             {token ? (
               <>
                 <li>
-                  <NavLink to="/account" onClick={handleClick} className="block">
+                  <NavLink
+                    to="/account"
+                    onClick={handleClick}
+                    className="block"
+                  >
                     ACCOUNT
                   </NavLink>
                 </li>
@@ -121,6 +125,3 @@ function MobileMenu() {
 }
 
 export default MobileMenu;
-
-
-

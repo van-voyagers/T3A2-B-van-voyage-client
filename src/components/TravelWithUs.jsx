@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 function TravelWithUs() {
   return (
     <div className="mx-auto px-6 sm:px-16 md:px-16 lg:px-44 max-w-screen-xl text-center space-y-8 mb-8 lg:mb-12 text-voyage-black text-sm sm:text-sm md:text-md lg:text-lg">
-      <h1 className="font-roboto lg:text-xl font-normal pt-8 lg:pt-12">TRAVEL WITH US</h1>
+      <h1 className="font-roboto lg:text-xl font-normal pt-8 lg:pt-12">
+        TRAVEL WITH US
+      </h1>
       <p className="font-mono text-xs sm:text-sm md:text-md lg:text-lg">
         Vintage camper-vans, meticulously refurbished and uniquely designed,
         available for hire. These are self-sustaining mobile cottages -

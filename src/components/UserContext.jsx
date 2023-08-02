@@ -1,5 +1,5 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
+import React, { useState, createContext, useContext, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 export const UserContext = createContext();
 
@@ -19,10 +19,10 @@ export const UserProvider = (props) => {
         logout();
       } else {
         // token is valid
-        localStorage.setItem('token', token);
+        localStorage.setItem("token", token);
       }
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
     }
   }, [token]);
 
@@ -40,13 +40,7 @@ export const UserProvider = (props) => {
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useUserContext must be used within a UserProvider');
+    throw new Error("useUserContext must be used within a UserProvider");
   }
   return context;
 };
-
-
-
-
-
-

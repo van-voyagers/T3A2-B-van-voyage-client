@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 function ContactForm() {
@@ -76,7 +76,6 @@ function ContactForm() {
               placeholder="Message..."
               className="w-full h-40 pl-2 pt-2 shadow-lg border-voyage-black border-opacity-50 focus:border-voyage-black focus:border-opacity-50 focus:outline-none focus:ring-2 focus:ring-voyage-black focus:ring-opacity-50 rounded"
             />
-
           </div>
           <div className="self-start">
             <button
@@ -92,5 +91,4 @@ function ContactForm() {
   );
 }
 
-export default ContactForm
-
+export default ContactForm;

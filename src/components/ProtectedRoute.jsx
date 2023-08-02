@@ -9,12 +9,11 @@ function ProtectedRoute(props) {
 
   // Render the intended component when logged in, redirect otherwise
   return (
-    <Route 
-      {...props} 
-      element={ token ? props.element : <Navigate to="/login" replace={true} />}
+    <Route
+      {...props}
+      element={token ? props.element : <Navigate to="/login" replace={true} />}
     />
   );
 }
 
 export default ProtectedRoute;
-
