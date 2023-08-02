@@ -1,3 +1,5 @@
+import React from 'react';
+
 function MobileVanSelect({ vans, onVanSelect }) {
   return (
     <div className="relative w-1/2 mt-8 mx-auto">
