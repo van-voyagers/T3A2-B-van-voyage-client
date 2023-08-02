@@ -1,14 +1,13 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom"; 
-import "@testing-library/jest-dom/extend-expect"; // Import MemoryRouter to wrap the NavLink
+import { MemoryRouter } from "react-router-dom";
+import "@testing-library/jest-dom/extend-expect";
 
 import TravelWithUs from "../src/components/TravelWithUs";
 
 test("renders the TravelWithUs component with correct content", () => {
-  // Arrange
+  // Arrange: Render the TravelWithUs component wrapped in MemoryRouter to use NavLink without Router warnings
   const { getByText } = render(
-    // Wrap the component with MemoryRouter to use NavLink without Router warnings
     <MemoryRouter>
       <TravelWithUs />
     </MemoryRouter>

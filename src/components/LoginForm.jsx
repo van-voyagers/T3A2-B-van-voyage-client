@@ -3,39 +3,51 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
+// LoginForm component handles the user login process
 function LoginForm() {
+  // Using useState hooks to set and manage email and password
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // useNavigate hook from react-router for navigation
   const navigate = useNavigate();
+
+  // useContext hook to get the user's token and setToken function from UserContext
   const { token, setToken } = useContext(UserContext);
 
-  // Define API_URL based on the mode
+  // Define the API_URL based on the mode (production or development)
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
 
+  // useEffect hook to log the initial value of the token
   useEffect(() => {
     console.log("Token before update:", token);
   }, []);
 
+  // useEffect hook to log the updated value of the token whenever it changes
   useEffect(() => {
     console.log("Token after update:", token);
   }, [token]);
 
+  // handleSubmit function handles the form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      // Make a POST request to sign in the user
       const response = await axios.post(`${API_URL}/users/sign-in`, {
         email,
         password,
       });
 
       console.log("Response data:", response.data);
+
+      // Update the token in the UserContext
       setToken(response.data.token);
 
-      // Save token to local storage
+      // Save the token in local storage
       localStorage.setItem("token", response.data.token);
 
       // Handle successful submission here

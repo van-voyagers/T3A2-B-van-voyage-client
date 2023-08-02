@@ -2,21 +2,30 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function ReviewForm() {
+  // Set initial state values for rating, comment, and bookingId
   const [rating, setRating] = useState(1);
   const [comment, setComment] = useState("");
   const [bookingId, setBookingId] = useState(null);
+
+  // Determine the API URL based on the mode of operation
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
+
+  // Create a static array for star rating
   const stars = Array(5).fill(0);
 
   useEffect(() => {
+    // Define a function to retrieve the token from local storage
     function getAuthToken() {
       return localStorage.getItem("token");
     }
 
+    // Retrieve the auth token
     const authToken = getAuthToken();
+
+    // If an auth token exists, fetch user's bookings
     if (authToken) {
       axios
         .get(`${API_URL}/bookings/my-bookings`, {
@@ -25,6 +34,7 @@ function ReviewForm() {
           },
         })
         .then((response) => {
+          // If the user has at least one booking, store the first booking's ID
           if (response.data.length > 0) {
             setBookingId(response.data[0]._id);
           }
@@ -35,18 +45,24 @@ function ReviewForm() {
     }
   }, []);
 
+  // Handle star click for rating input
   const handleStarClick = (i) => {
     setRating(i + 1);
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Define a function to retrieve the token from local storage
     function getAuthToken() {
       return localStorage.getItem("token");
     }
 
+    // Retrieve the auth token
     const authToken = getAuthToken();
+
+    // If no auth token exists, alert the user to log in
     if (!authToken) {
       alert(
         "You must be logged in to post a review. Please log in and try again."
@@ -54,17 +70,20 @@ function ReviewForm() {
       return;
     }
 
+    // If no booking ID exists, alert the user to make a booking
     if (!bookingId) {
       alert("You must have at least one booking to post a review.");
       return;
     }
 
+    // Define review object
     const review = {
       booking: bookingId,
       rating,
       comment,
     };
 
+    // Make a POST request to create the review
     axios
       .post(`${API_URL}/reviews/create`, review, {
         headers: {

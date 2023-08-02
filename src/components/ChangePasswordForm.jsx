@@ -4,26 +4,34 @@ import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
 function ChangePasswordForm() {
+  // Using useState hook to handle local state
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // useNavigate hook for programmatically navigating the router
   const navigate = useNavigate();
+
+  // useContext hook to access the global context, UserContext
   const { token, setToken } = useContext(UserContext);
 
-  // Define API_URL based on the mode
+  // Define the API URL depending on the current mode (production or development)
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
 
+  // This function will be triggered when the form is submitted
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Validate the new password and the confirmed password
     if (newPassword !== confirmPassword) {
       alert("New password and confirm password do not match!");
       return;
     }
 
+    // Make a PUT request to change the password
     try {
       const response = await axios.put(
         `${API_URL}/users/change-password`,
@@ -38,16 +46,19 @@ function ChangePasswordForm() {
         }
       );
 
+      // Log the response data for debugging purposes
       console.log(response.data);
 
+      // If the password change was successful, navigate to the login page
       if (response.data.message === "Password changed successfully") {
         alert("Successfully updated password!");
-        setToken(null); // You should also clear token after password change because it might become invalid.
-        localStorage.removeItem("token"); // Clear the token from local storage too.
-        navigate("/login"); // Navigate to login page.
+        setToken(null); // Clear the token as it might become invalid after password change
+        localStorage.removeItem("token"); // Also clear the token from local storage
+        navigate("/login"); // Navigate the user to the login page
       }
     } catch (error) {
       console.error(error.response);
+      // Handle specific error message
       if (
         error.response &&
         error.response.data.message === "Invalid current password"
@@ -59,14 +70,16 @@ function ChangePasswordForm() {
     }
   };
 
+  // This function will be triggered when the delete button is clicked
   const handleDelete = async () => {
+    // Ask for user confirmation before deletion
     if (
       window.confirm(
         "Do you wish to delete your account? All data will be removed from the database."
       )
     ) {
+      // Make a DELETE request to delete the user account
       try {
-        console.log("Token before request: ", token);
         const response = await axios.delete(`${API_URL}/users/delete`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,6 +87,8 @@ function ChangePasswordForm() {
         });
 
         console.log(response.data);
+
+        // If the account deletion was successful, navigate to the home page
         if (response.data.message === "Account deleted successfully") {
           alert("Your account has been deleted successfully.");
           setToken(null);

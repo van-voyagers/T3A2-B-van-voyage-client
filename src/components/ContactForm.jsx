@@ -2,11 +2,16 @@ import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 function ContactForm() {
+  // Create a reference to the form
   const form = useRef();
 
+  // Defines the function to send an email
   const sendEmail = (e) => {
+    // Prevents the default form submission behaviour
     e.preventDefault();
 
+    // Uses the emailjs service to send an email
+    // It's given the email service ID, template ID, the form element and the public key from environment variables
     emailjs
       .sendForm(
         import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
@@ -14,14 +19,21 @@ function ContactForm() {
         form.current,
         import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
       )
+      // If the email was successfully sent
       .then(
         (result) => {
+          // Logs the result to the console
           console.log(result.text);
+          // Alerts the user that the email was successfully sent
           alert("Email successfully sent!");
+          // Resets the form fields
           form.current.reset();
         },
+        // If there was an error sending the email
         (error) => {
+          // Logs the error to the console
           console.log(error.text);
+          // Alerts the user that the email could not be sent
           alert("Failed to send email. Please try again!");
         }
       );

@@ -3,38 +3,48 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function CreateAccountForm() {
+  // Uses React hooks to define state for email and password
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // Hook for programmatically changing the current URL
   const navigate = useNavigate();
 
-  // Define API_URL based on the mode
+  // Defines API_URL based on the current mode (production or development)
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
 
+  // Defines the function to submit the form
   const handleSubmit = async (event) => {
+    // Prevents the default form submission behaviour
     event.preventDefault();
 
+    // Checks if the password length is less than 6
     if (password.length < 6) {
+      // Alerts the user that the password must be at least 6 characters long
       alert("Password must be at least 6 characters long.");
       return;
     }
 
     try {
+      // Logs the API URL to the console
       console.log(API_URL);
+      // Sends a POST request to create an account with the provided email and password
       const response = await axios.post(`${API_URL}/users/create-account`, {
         email,
         password,
       });
 
-      // Handle successful submission here
+      // If the request was successful, alert the user and navigate to the login page
       alert("Account successfully created!");
       navigate("/login");
     } catch (error) {
-      // Handle error during submission here
+      // If there was an error during the request, log it to the console
       console.error(error);
 
+      // If the server responded with a 400 status, alert the user with the error message from the server
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message || "An error occurred");
       }

@@ -5,25 +5,34 @@ import MobileMenu from "./MobileMenu";
 import { UserContext } from "../components/UserContext";
 
 function Header() {
+  // Get current URL path
   const location = useLocation();
-  const navigate = useNavigate();
-  const { token, logout, loading } = useContext(UserContext); // Extract the loading state
 
+  // Get navigate function for routing
+  const navigate = useNavigate();
+
+  // Access user token, logout function, and loading state from UserContext
+  const { token, logout, loading } = useContext(UserContext);
+
+  // Log the token value whenever it changes
   useEffect(() => {
     console.log("Token in header:", token);
   }, [token]);
 
+  // Check if the current location matches the passed path to manage active link styles
   const getNavLinkClass = (path) => {
     return location.pathname === path ? "font-normal" : "";
   };
 
+  // Handle user logout action: invoke logout and navigate to home page
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  // If the app is in loading state, render nothing (or a loading indicator could go here)
   if (loading) {
-    return null; // Or render a loading spinner
+    return null;
   }
 
   return (

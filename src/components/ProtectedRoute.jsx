@@ -2,12 +2,14 @@ import { Navigate, Route } from "react-router-dom";
 import { useUserContext } from "./UserContext";
 
 function ProtectedRoute(props) {
-  const { token, loading } = useUserContext(); // Destructure loading
+  // Extract token and loading state from the user context
+  const { token, loading } = useUserContext(); 
 
-  // Render null while loading
+  // When the loading state is true, render nothing (null) while the user data is being loaded
   if (loading) return null;
 
-  // Render the intended component when logged in, redirect otherwise
+  // Render the component intended for this route if the user is authenticated (token exists),
+  // If not authenticated, redirect the user to the login page.
   return (
     <Route
       {...props}
@@ -17,3 +19,4 @@ function ProtectedRoute(props) {
 }
 
 export default ProtectedRoute;
+

@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect"; // Import extend-expect to add custom matchers
+import "@testing-library/jest-dom/extend-expect";
 import ReasonsToHire from "../src/components/ReasonsToHire";
 
 test("renders the ReasonsToHire component with correct data", () => {
@@ -15,7 +15,6 @@ test("renders the ReasonsToHire component with correct data", () => {
       description:
         "Experience the freedom of the open road with a van designed for exploration. It's the perfect abode for your wandering spirit.",
     },
-    // Add other reasons data here...
   ];
 
   // Assert: Check if the elements are present in the rendered output
@@ -33,5 +32,3 @@ test("renders the ReasonsToHire component with correct data", () => {
     expect(descriptionElement.textContent).toBe(reason.description);
   });
 });
-
-

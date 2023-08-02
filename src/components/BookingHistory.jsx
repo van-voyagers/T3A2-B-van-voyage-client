@@ -17,7 +17,6 @@ function BookingHistory() {
         const token = localStorage.getItem("token");
         if (!token) {
           // Redirect to login page if the user is not logged in
-          // Implement your own logic for handling unauthenticated users
           return;
         }
 
@@ -63,7 +62,6 @@ function BookingHistory() {
       const token = localStorage.getItem("token");
       if (!token) {
         // Redirect to login page if the user is not logged in
-        // Implement your own logic for handling unauthenticated users
         return;
       }
 
@@ -99,9 +97,6 @@ function BookingHistory() {
                 key={booking._id}
                 className="text-voyage-black shadow-xl border border-voyage-black rounded-lg my-16 py-8 px-16"
               >
-                {/*<p>
-                  <strong>Booking Confirmed:</strong> (license boolean?)
-            </p>*/}
                 <p className="py-4">
                   <strong>Van:</strong> {booking.van.vanName}
                 </p>

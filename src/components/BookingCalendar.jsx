@@ -138,7 +138,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const token = localStorage.getItem("token"); // assuming token is stored in local storage?
+    const token = localStorage.getItem("token"); 
 
     // Check if token exists before making a booking
     if (!token) {
@@ -147,7 +147,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       return;
     }
 
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000; 
     const diffDays = Math.round(
       Math.abs((selectedEndDate - selectedStartDate) / oneDay + 1)
     );
@@ -195,7 +195,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       vanID,
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
-    }); // Added this line
+    });
 
     try {
       const response = await axios
@@ -227,8 +227,8 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           // Check if the error response from server is 401 Unauthorized
           if (error.response && error.response.status === 401) {
             alert("Your session has expired, please log in again to continue");
-            localStorage.removeItem("token"); // Optional: remove the invalid token
-            navigate("/login"); // Assuming you have a login page at this route
+            localStorage.removeItem("token");
+            navigate("/login");
           } else if (error.response && error.response.status === 400) {
             alert(
               "The van is not available for the dates you have selected, please check your dates and try again."
@@ -256,7 +256,6 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           onSubmit={handleSubmit}
           className="flex flex-col items-center px-5 space-y-4 text-voyage-black"
         >
-          {/*<h2>Booking Calendar</h2>*/}
           <p className="font-mono pt-6 pb-6">
             {totalPrice ? (
               <>
@@ -331,7 +330,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
             }
             tileDisabled={({ date }) => {
               date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-              const formattedDate = date.setHours(0, 0, 0, 0); // Removes the time part of the date
+              const formattedDate = date.setHours(0, 0, 0, 0);
               return (
                 formattedDate < today ||
                 bookedDates.some(

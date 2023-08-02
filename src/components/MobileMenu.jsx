@@ -6,17 +6,25 @@ import VanVoyageFooterLogo from "../assets/icons/van-voyage-footer-logo.png";
 import VanVoyageHeaderLogo from "../assets/icons/van-voyage-header-logo.png";
 import { UserContext } from "../components/UserContext";
 
+// MobileMenu component handles the mobile navigation menu and its state
 function MobileMenu() {
+  // Using useState to manage the open/close state of the mobile menu
   const [isOpen, setIsOpen] = useState(false);
+
+  // Using useContext hook to get the user's token and logout function from UserContext
   const { token, logout } = useContext(UserContext);
+
+  // useNavigate hook from react-router for navigation
   const navigate = useNavigate();
 
+  // handleClick function toggles the isOpen state
   const handleClick = () => setIsOpen(!isOpen);
 
+  // handleLogout function logs the user out, navigates to the homepage and closes the menu
   const handleLogout = () => {
-    logout();
-    navigate("/");
-    setIsOpen(false);
+    logout(); // call the logout function from UserContext
+    navigate("/"); // navigate to the homepage
+    setIsOpen(false); // close the mobile menu
   };
 
   return (

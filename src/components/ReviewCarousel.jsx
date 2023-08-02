@@ -5,6 +5,7 @@ import axios from "axios";
 import StarRatings from "react-star-ratings";
 
 const ReviewCarousel = () => {
+  // Initialize state to hold reviews
   const [reviews, setReviews] = useState([]);
 
   // Define API_URL based on the mode
@@ -17,15 +18,20 @@ const ReviewCarousel = () => {
     // fetch reviews when the component mounts
     const fetchReviews = async () => {
       try {
+        // Make GET request to fetch all reviews
         const res = await axios.get(`${API_URL}/reviews/all`);
+        // Update state with fetched reviews
         setReviews(res.data);
       } catch (err) {
+        // Log any error that occurs during fetching the reviews
         console.error(err);
       }
     };
+    // Call the function to fetch reviews
     fetchReviews();
   }, []);
 
+  // Define styles for arrow buttons in the carousel
   const arrowStyles = {
     position: "absolute",
     zIndex: 2,
@@ -92,7 +98,7 @@ const ReviewCarousel = () => {
                   </div>
                 );
               } else {
-                return null; // or some fallback UI
+                return null;
               }
             })}
           </Carousel>

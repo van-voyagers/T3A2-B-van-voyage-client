@@ -11,12 +11,16 @@ import { useUserContext } from "./components/UserContext";
 import { Navigate } from "react-router-dom";
 
 function App() {
+  // Use the user context to get the token (to check if user is authenticated)
   const { token } = useUserContext();
 
+  // This component is used to protect routes from being accessed by unauthenticated users.
+  // If there is no token (user is not authenticated), it redirects to the login page.
   const ProtectedElement = ({ children }) =>
     token ? children : <Navigate to="/login" replace={true} />;
 
   return (
+    // This div is the container for the whole application.
     <div className="bg-voyage-grey min-h-screen">
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,6 +28,7 @@ function App() {
         <Route
           path="/account"
           element={
+            // Wrap the Account component with ProtectedElement to prevent unauthenticated access
             <ProtectedElement>
               <Account />
             </ProtectedElement>

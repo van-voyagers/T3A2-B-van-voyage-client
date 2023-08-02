@@ -4,6 +4,7 @@ import axios from "axios";
 import { UserContext } from "../components/UserContext";
 
 function UpdateDetailsForm() {
+  // Initialize state variables for form fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,25 +13,35 @@ function UpdateDetailsForm() {
   const [dob, setDob] = useState("");
   const [dobType, setDobType] = useState("text");
   const [driversLicense, setDriversLicense] = useState("");
+
+  // Navigation hook from react-router-dom
   const navigate = useNavigate();
+
+  // Extract token from UserContext
   const { token } = useContext(UserContext);
 
+  // Determine API endpoint based on environment (development or production)
   const API_URL =
     import.meta.env.MODE === "production"
       ? import.meta.env.VITE_API_URL_PROD
       : import.meta.env.VITE_API_URL_DEV;
 
+  // Change input type to 'date' when dob field is in focus
   const handleDobFocus = (e) => setDobType("date");
 
+  // Change input type back to 'text' when dob field is not in focus and is empty
   const handleDobBlur = (e) => {
     if (e.target.value === "") {
       setDobType("text");
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Construct the object to be sent in the PUT request.
+    // Only include fields that are not empty.
     const updatedFields = {
       ...(firstName && { firstName }),
       ...(lastName && { lastName }),
@@ -42,6 +53,7 @@ function UpdateDetailsForm() {
     };
 
     try {
+      // Send a PUT request to update user details
       const response = await axios.put(
         `${API_URL}/users/update`,
         updatedFields,
@@ -54,6 +66,8 @@ function UpdateDetailsForm() {
 
       console.log(response.data);
       alert("Successfully updated details!");
+
+      // Navigate to account page and refresh the page to reflect new changes
       navigate("/account");
       window.location.reload();
     } catch (error) {
