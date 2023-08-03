@@ -10,7 +10,7 @@ function Account() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <p className="text-center font-roboto text-voyage-black mt-20 text-xl underline underline-offset-8">ACCOUNT SETTINGS</p>
+      <p className="text-center font-mono text-voyage-black mt-20 text-xl underline underline-offset-8">ACCOUNT SETTINGS</p>
       <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md">PERSONAL DETAILS</p>
       <PersonalDetails /> 
       <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md">UPDATE PERSONAL DETAILS</p>

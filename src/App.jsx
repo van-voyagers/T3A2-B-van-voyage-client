@@ -42,8 +42,8 @@ function App() {
         <Route path="/vans" element={<Vans />} />
       </Routes>
       <ToastContainer
-        position="bottom-left"
-        autoClose={5000}
+        position="top-right"
+        autoClose={4000}
         limit={2}
         hideProgressBar={false}
         newestOnTop={false}
@@ -53,6 +53,7 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
+        toastStyle={{ backgroundColor: '#36413fe0', color: '#f8f8f8', border: '#f8f8f8' }}
       />
     </div>
   )
