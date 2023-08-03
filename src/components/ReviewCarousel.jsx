@@ -68,6 +68,7 @@ const ReviewCarousel = () => {
             infiniteLoop
             useKeyboardArrows
             autoPlay
+            interval={2000}
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
               hasPrev && (
                 <div

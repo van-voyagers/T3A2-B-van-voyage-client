@@ -31,24 +31,24 @@ function HireRates() {
         </NavLink>
       </button>
 
-      <div className="flex flex-wrap justify-center mt-8 sm:mt-12 space-y-4 md:space-y-0 font-mono">
+      <div className="flex flex-wrap justify-center sm:mt-12 space-y-4 md:space-y-0 font-mono">
         <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={Marigold1}
             alt="Marigold"
-            className="w-full shadow-xl my-8"
+            className="w-full shadow-xl my-4"
           />
           <h2 className="text-center">MARIGOLD</h2>
         </div>
         <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
-          <img src={Eddie1} alt="Eddie" className="w-full shadow-xl my-8" />
+          <img src={Eddie1} alt="Eddie" className="w-full shadow-xl my-4" />
           <h2 className="text-center">EDDIE</h2>
         </div>
         <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={VengaBus1}
             alt="Venga Bus 1"
-            className="w-full shadow-xl my-8"
+            className="w-full shadow-xl my-4"
           />
           <h2 className="text-center">VENGA BUS</h2>
         </div>
