@@ -7,8 +7,8 @@ import VengaBus1 from "../assets/images/vans/venga-bus/venga-bus-1.png";
 function HireRates() {
   return (
     <div className="mx-auto px-6 sm:px-16 md:px-16 lg:px-44 max-w-screen-xl text-center space-y-8 mb-8 lg:mb-12 text-voyage-black text-sm sm:text-sm md:text-md lg:text-lg my-8">
-      <h1 className="font-mono pt-8 lg:pt-12 lg:text-xl">HIRE RATES</h1>
-      <p className="font-mono text-xs sm:text-sm md:text-md lg:text-lg">
+      <h1 className="font-mono py-4 sm:py-12 lg:pt-12 lg:text-xl">HIRE RATES</h1>
+      <p className="font-mono text-xs sm:text-sm md:text-md lg:text-lg pb-8">
         At Van Voyage, we believe that freedom on the road shouldn't cost the
         earth. Our rates are designed to provide a perfect balance between
         comfort and affordability. Our hire rates range from $130 to $240 per
@@ -31,7 +31,7 @@ function HireRates() {
         </NavLink>
       </button>
 
-      <div className="flex flex-wrap justify-center sm:mt-12 space-y-4 md:space-y-0 font-mono pb-8">
+      <div className="flex flex-wrap justify-center sm:mt-12 space-y-4 md:space-y-0 font-mono py-8">
         <div className="w-full md:w-1/3 lg:w-1/3 px-2 md:mb-0">
           <img
             src={Marigold1}
