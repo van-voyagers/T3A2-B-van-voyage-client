@@ -24,7 +24,7 @@ function Vans() {
       <MobileVanSelect vans={vans} onVanSelect={setSelectedVan} />
       <div className="text-center text-lg flex-grow">
         {loading ? (
-          <div className="flex justify-center items-center h-screen pb-40">
+          <div className="hidden sm:flex justify-center items-center h-screen pb-40">
             <img
               src="/loading-gif.gif"
               alt="...LOADING..."

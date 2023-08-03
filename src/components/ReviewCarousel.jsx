@@ -52,7 +52,7 @@ const ReviewCarousel = () => {
         REVIEWS
       </h2>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center pb-14">
           <img
             src="/loading-gif.gif"
             alt="...LOADING..."
