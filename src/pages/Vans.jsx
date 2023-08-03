@@ -24,11 +24,11 @@ function Vans() {
       <MobileVanSelect vans={vans} onVanSelect={setSelectedVan} />
       <div className="text-center text-lg flex-grow">
         {loading ? (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex justify-center items-center h-screen">
             <img
               src="/loading-gif.gif"
               alt="...LOADING..."
-              style={{ width: "100px", height: "100px" }}
+              style={{ width: "60px", height: "60px" }}
             />
           </div>
         ) : (
