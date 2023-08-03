@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function MobileVanSelect({ vans, onVanSelect }) {
   return (
@@ -8,7 +8,7 @@ function MobileVanSelect({ vans, onVanSelect }) {
           onVanSelect(vans.find((van) => van._id === e.target.value))
         }
         className="w-full h-14 flex justify-center text-base text-voyage-black transition duration-500 ease-in-out transform border-4 voyage-green rounded-lg bg-voyage-white shadow-xl focus:voyage-white focus:bg-voyage-grey focus:outline-none focus:ring-0 text-center uppercase appearance-none md:hidden" // md:hidden will hide this on medium and larger screens
-        style={{ textAlignLast: "center" }} // Add this line
+        style={{ textAlignLast: 'center' }} // Add this line
       >
         <option value="">Select Van</option>
         {vans.map((van) => (
@@ -27,7 +27,7 @@ function MobileVanSelect({ vans, onVanSelect }) {
         </svg>
       </div>
     </div>
-  );
+  )
 }
 
-export default MobileVanSelect;
+export default MobileVanSelect

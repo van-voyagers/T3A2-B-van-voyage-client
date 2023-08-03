@@ -1,23 +1,25 @@
-import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import About from "./pages/About";
-import Account from "./pages/Account";
-import Contact from "./pages/Contact";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Vans from "./pages/Vans";
-import { useUserContext } from "./components/UserContext";
-import { Navigate } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom'
+import './App.css'
+import About from './pages/About'
+import Account from './pages/Account'
+import Contact from './pages/Contact'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import Vans from './pages/Vans'
+import { useUserContext } from './components/UserContext'
+import { Navigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   // Use the user context to get the token (to check if user is authenticated)
-  const { token } = useUserContext();
+  const { token } = useUserContext()
 
   // This component is used to protect routes from being accessed by unauthenticated users.
   // If there is no token (user is not authenticated), it redirects to the login page.
   const ProtectedElement = ({ children }) =>
-    token ? children : <Navigate to="/login" replace={true} />;
+    token ? children : <Navigate to="/login" replace={true} />
 
   return (
     // This div is the container for the whole application.
@@ -39,8 +41,21 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/vans" element={<Vans />} />
       </Routes>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        limit={2}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

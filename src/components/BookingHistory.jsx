@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify'
 
 function BookingHistory() {
   // States to store bookings data
@@ -99,7 +100,7 @@ function BookingHistory() {
       setBookings(updatedBookings); // Update the state with the filtered bookings array
 
       // Show an alert to notify the user that the booking was cancelled
-      alert("Booking cancelled");
+      toast.info("Booking cancelled");
     } catch (error) {
       console.error("Error deleting booking:", error);
     }

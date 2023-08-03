@@ -12,9 +12,9 @@ function Contact() {
       <div>
         <img src={ContactPage1} alt="Home Page" className="w-full h-auto" />
       </div>
-      <p className="text-center font-roboto text-voyage-black mt-20 mb-10 text-md lg:text-xl">CONTACT US</p>
+      <p className="text-center font-mono text-voyage-black mt-20 mb-10 text-md lg:text-xl">CONTACT US</p>
       <ContactForm />
-      <p className="text-center font-roboto text-voyage-black mt-10 mb-10 text-md lg:text-xl">LEAVE US A REVIEW</p>
+      <p className="text-center font-mono text-voyage-black mt-10 mb-10 text-md lg:text-xl">LEAVE US A REVIEW</p>
       <ReviewForm />
       <Footer />
     </div>
