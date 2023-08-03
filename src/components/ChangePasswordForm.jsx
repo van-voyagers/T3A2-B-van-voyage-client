@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
+import { toast } from 'react-toastify'
 
 function ChangePasswordForm() {
   // Using useState hook to handle local state
@@ -27,7 +28,7 @@ function ChangePasswordForm() {
 
     // Validate the new password and the confirmed password
     if (newPassword !== confirmPassword) {
-      alert("New password and confirm password do not match!");
+      toast.warn("New password and confirm password do not match!");
       return;
     }
 
@@ -51,7 +52,7 @@ function ChangePasswordForm() {
 
       // If the password change was successful, navigate to the login page
       if (response.data.message === "Password changed successfully") {
-        alert("Successfully updated password!");
+        toast.success("Successfully updated password!");
         setToken(null); // Clear the token as it might become invalid after password change
         localStorage.removeItem("token"); // Also clear the token from local storage
         navigate("/login"); // Navigate the user to the login page
@@ -63,9 +64,9 @@ function ChangePasswordForm() {
         error.response &&
         error.response.data.message === "Invalid current password"
       ) {
-        alert("Invalid current password, please try again.");
+        toast.error("Invalid current password, please try again.");
       } else {
-        alert("An error occurred while updating the password.");
+        toast.error("An error occurred while updating the password.");
       }
     }
   };
@@ -90,7 +91,7 @@ function ChangePasswordForm() {
 
         // If the account deletion was successful, navigate to the home page
         if (response.data.message === "Account deleted successfully") {
-          alert("Your account has been deleted successfully.");
+          toast.info("Your account has been deleted successfully.");
           setToken(null);
           localStorage.removeItem("token");
           navigate("/");
@@ -100,7 +101,7 @@ function ChangePasswordForm() {
         if (error.response) {
           console.error("Server response: ", error.response.data);
         }
-        alert("An error occurred while trying to delete your account.");
+        toast.error("An error occurred while trying to delete your account.");
       }
     }
   };

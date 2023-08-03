@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "../Calendar.css";
 import axios from "axios";
 import VanDescriptions from "./VanDescriptions";
+import { toast } from 'react-toastify'
 
 function BookingCalendar({ vanID, pricePerDay, vanName }) {
   // Initialize state variables to manage selected dates, booked dates, total price, and error messages
@@ -184,7 +185,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     // Check if token exists before making a booking
     if (!token) {
       // If token does not exist, show an alert to prompt the user to log in
-      alert("Please log in to make a booking");
+      toast.warn("Please log in to make a booking");
       // Navigate to the login page
       navigate("/login");
       return;
@@ -200,14 +201,14 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
     // Check if the booking is less than 2 days
     if (diffDays <= 2) {
       // If the booking is less than 2 days, show an alert to the user
-      alert("A booking must be at least 3 days in duration.");
+      toast.warn("A booking must be at least 3 days in duration.");
       return;
     }
 
     // Check if the booking is more than 21 days
     if (diffDays > 21) {
       // If the booking is more than 21 days, show an alert to the user
-      alert(
+      toast.warn(
         "A booking cannot exceed 3 weeks in duration. If you would like to book for longer, please contact us through the contact form."
       );
       return;
@@ -224,7 +225,7 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
       !userDetails.phoneNumber
     ) {
       // If any user details are missing or incomplete, show an alert to the user
-      alert(
+      toast.warn(
         "To make a booking, please update and complete your personal details"
       );
       // Navigate to the account page for the user to update their details
@@ -268,13 +269,16 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           }
         )
         .then((response) => {
-          // If the booking is successful, show a success alert with booking details
-          alert(
-            `New booking made for: \n
-          Van: ${vanName.toUpperCase()} \n
-          Start date - ${new Date(startDate).toDateString()} \n
-          End date - ${new Date(endDate).toDateString()}\n
-          Total Price: $${totalPrice}`
+          // If the booking is successful, show a success alert with booking details. HTML for formatting
+          toast.info(
+            <div>New booking made for:<br /><br/>
+            Van: {vanName.toUpperCase()}<br /><br/>
+            Start date - {new Date(startDate).toDateString()}<br />
+            End date - {new Date(endDate).toDateString()}<br /><br/>
+            Total Price: ${totalPrice}</div>,
+            {
+              render: 'html'
+            }
           );
           navigate("/account"); // Navigate to the user's account page after successful booking
         })
@@ -282,12 +286,12 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
           // Handle different types of errors returned from the server
           if (error.response && error.response.status === 401) {
             // If the error response is 401 Unauthorized, user's session has expired, prompt to log in again
-            alert("Your session has expired, please log in again to continue");
+            toast.warn("Your session has expired, please log in again to continue");
             localStorage.removeItem("token");
             navigate("/login"); // Navigate to the login page
           } else if (error.response && error.response.status === 400) {
             // If the error response is 400 Bad Request, the van is not available for selected dates
-            alert(
+            toast.warn(
               "The van is not available for the dates you have selected, please check your dates and try again."
             );
             // Show alert for van not available
@@ -306,9 +310,9 @@ function BookingCalendar({ vanID, pricePerDay, vanName }) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row justify-center text-voyage-green font-normal mt-8 sm:p-16 text-left m-8">
+    <div className="flex flex-col sm:flex-row justify-center text-voyage-green font-normal sm:p-16 text-left m-8">
       <VanDescriptions />
-      <div className="flex-col items-end space-y-4 border border-voyage-green rounded-3xl shadow-lg pt-8 pb-8 mt-8 mb-8 sm:m-0 h-full sm:ml-10 lg:ml-24">
+      <div className="flex-col items-end space-y-4 border border-voyage-green rounded-3xl shadow-lg pt-8 pb-8 my-16 mb-8 sm:m-0 h-full sm:ml-10 lg:ml-24">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center px-5 space-y-4 text-voyage-black"

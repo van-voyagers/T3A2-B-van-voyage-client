@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
+import { toast } from 'react-toastify'
 
 // LoginForm component handles the user login process
 function LoginForm() {
@@ -51,7 +52,7 @@ function LoginForm() {
       localStorage.setItem("token", response.data.token);
 
       // Handle successful submission here
-      alert("Successfully signed in!");
+      toast.success("Successfully signed in!");
       navigate("/account");
     } catch (error) {
       console.error(error);
@@ -59,7 +60,7 @@ function LoginForm() {
       if (error.response && error.response.status === 401) {
         alert(error.response.data.message);
       } else {
-        alert("Incorrect Password!");
+        toast.error("Incorrect Password!");
       }
     }
   };

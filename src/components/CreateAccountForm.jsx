@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from 'react-toastify'
 
 function CreateAccountForm() {
   // Uses React hooks to define state for email and password
@@ -24,7 +25,7 @@ function CreateAccountForm() {
     // Checks if the password length is less than 6
     if (password.length < 6) {
       // Alerts the user that the password must be at least 6 characters long
-      alert("Password must be at least 6 characters long.");
+      toast.warning("Password must be at least 6 characters long.");
       return;
     }
 
@@ -38,7 +39,7 @@ function CreateAccountForm() {
       });
 
       // If the request was successful, alert the user and navigate to the login page
-      alert("Account successfully created!");
+      toast.success('Account successfully created!')
       navigate("/login");
     } catch (error) {
       // If there was an error during the request, log it to the console
@@ -46,7 +47,7 @@ function CreateAccountForm() {
 
       // If the server responded with a 400 status, alert the user with the error message from the server
       if (error.response && error.response.status === 400) {
-        alert(error.response.data.message || "An error occurred");
+        toast.error((error.response.data.message || "An error occurred"));
       }
     }
   };

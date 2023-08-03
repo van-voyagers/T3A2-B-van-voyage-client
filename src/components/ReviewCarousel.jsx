@@ -48,7 +48,7 @@ const ReviewCarousel = () => {
 
   return (
     <div className="text-center">
-      <h2 className="text-sm lg:text-xl text-voyage-black font-roboto my-6 sm:my-8">
+      <h2 className="text-sm lg:text-xl text-voyage-black font-mono my-6 sm:my-8">
         REVIEWS
       </h2>
       {loading ? (

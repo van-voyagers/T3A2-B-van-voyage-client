@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify'
 
 function ReviewForm() {
   // Set initial state values for rating, comment, and bookingId
@@ -64,7 +65,7 @@ function ReviewForm() {
 
     // If no auth token exists, alert the user to log in
     if (!authToken) {
-      alert(
+      toast.info(
         "You must be logged in to post a review. Please log in and try again."
       );
       return;
@@ -72,7 +73,7 @@ function ReviewForm() {
 
     // If no booking ID exists, alert the user to make a booking
     if (!bookingId) {
-      alert("You must have at least one booking to post a review.");
+      toast.info("You must have at least one booking to post a review.");
       return;
     }
 
@@ -91,13 +92,13 @@ function ReviewForm() {
         },
       })
       .then(() => {
-        alert("Review successfully posted!");
+        toast.success("Review successfully posted!");
         setComment("");
         setRating(0);
       })
       .catch((error) => {
         console.error("Error posting review:", error);
-        alert("Failed to post review. Please try again later.");
+        toast.error("Failed to post review. Please try again later.");
       });
   };
 

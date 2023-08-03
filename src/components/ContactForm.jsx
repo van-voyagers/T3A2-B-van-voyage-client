@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { toast } from 'react-toastify'
 
 function ContactForm() {
   // Create a reference to the form
@@ -25,7 +26,7 @@ function ContactForm() {
           // Logs the result to the console
           console.log(result.text);
           // Alerts the user that the email was successfully sent
-          alert("Email successfully sent!");
+          toast.success("Email successfully sent!");
           // Resets the form fields
           form.current.reset();
         },
@@ -34,7 +35,7 @@ function ContactForm() {
           // Logs the error to the console
           console.log(error.text);
           // Alerts the user that the email could not be sent
-          alert("Failed to send email. Please try again!");
+          toast.error("Failed to send email. Please try again!");
         }
       );
   };

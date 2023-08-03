@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../components/UserContext";
+import { toast } from 'react-toastify'
 
 function UpdateDetailsForm() {
   // Initialize state variables for form fields
@@ -65,13 +66,22 @@ function UpdateDetailsForm() {
       );
 
       console.log(response.data);
-      alert("Successfully updated details!");
+      toast.success("Successfully updated details!");
 
       // Navigate to account page and refresh the page to reflect new changes
       navigate("/account");
       window.location.reload();
     } catch (error) {
       console.error(error.response);
+   
+   if (error.response && error.response.status === 409) {
+       // Handling the case where the email address already exists
+       toast.error(error.response.data.message || "Email address already exists.");
+   } else {
+       // Handling other error cases
+       toast.error("An error occurred while updating details.");
+   }
+      
     }
   };
 
