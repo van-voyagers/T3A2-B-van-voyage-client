@@ -7,6 +7,7 @@ import StarRatings from "react-star-ratings";
 const ReviewCarousel = () => {
   // Initialize state to hold reviews
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   // Define API_URL based on the mode
   const API_URL =
@@ -18,13 +19,16 @@ const ReviewCarousel = () => {
     // fetch reviews when the component mounts
     const fetchReviews = async () => {
       try {
+        setLoading(true); // Set loading state to true before fetching reviews
         // Make GET request to fetch all reviews
         const res = await axios.get(`${API_URL}/reviews/all`);
         // Update state with fetched reviews
         setReviews(res.data);
+        setLoading(false); // Set loading state to false after fetching reviews
       } catch (err) {
         // Log any error that occurs during fetching the reviews
         console.error(err);
+        setLoading(false); // Set loading state to false even if an error occurred
       }
     };
     // Call the function to fetch reviews
@@ -47,7 +51,15 @@ const ReviewCarousel = () => {
       <h2 className="text-sm lg:text-xl text-voyage-black font-roboto my-6 sm:my-8">
         REVIEWS
       </h2>
-      {reviews.length ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <img
+            src="/loading-gif.gif"
+            alt="...LOADING..."
+            style={{ width: "60px", height: "60px" }}
+          />
+        </div>
+      ) : reviews.length ? (
         <div>
           <Carousel
             showThumbs={false}
@@ -107,7 +119,7 @@ const ReviewCarousel = () => {
           </p>
         </div>
       ) : (
-        <p className="text-voyage-black mb-10 font-mono">...LOADING...</p>
+        <p className="text-voyage-black mb-10 font-mono">No Reviews Found</p>
       )}
     </div>
   );
