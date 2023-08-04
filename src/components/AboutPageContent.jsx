@@ -61,7 +61,7 @@ function AboutPageContent() {
       </p>
       <br />
       <br />
-      <p className="font-mono text-xs sm:text-sm md:text-md lg:text-md text-right">
+      <p className="font-mono pb-6 text-xs sm:text-sm md:text-md lg:text-md text-right">
         <em>
           Everything on this page is fictitious. Van Voyage and this website do
           not represent a real business.

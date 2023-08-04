@@ -8,7 +8,7 @@ function HireRates() {
   return (
     <div className="mx-auto px-6 sm:px-16 md:px-16 lg:px-44 max-w-screen-xl text-center space-y-8 mb-8 lg:mb-12 text-voyage-black text-sm sm:text-sm md:text-md lg:text-lg my-8">
       <h1 className="font-mono sm:pt-4 lg:text-xl">HIRE RATES</h1>
-      <p className="font-mono text-xs sm:text-sm md:text-md lg:text-lg">
+      <p className="font-mono text-xs py-2 sm:text-sm md:text-md lg:text-lg">
         At Van Voyage, we believe that freedom on the road shouldn't cost the
         earth. Our rates are designed to provide a perfect balance between
         comfort and affordability. Our hire rates range from $130 to $240 per
