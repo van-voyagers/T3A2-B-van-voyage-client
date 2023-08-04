@@ -42,7 +42,7 @@ function App() {
         <Route path="/vans" element={<Vans />} />
       </Routes>
       <ToastContainer
-        position="top-right"
+        position="bottom-left"
         autoClose={4000}
         limit={2}
         hideProgressBar={false}

@@ -55,3 +55,12 @@
   font-weight: 900;
   font-style: normal;
 }
+
+.Toastify__toast-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Change the color of progress bar */
+.Toastify__progress-bar {
+  background: #ffffff !important;
+}
