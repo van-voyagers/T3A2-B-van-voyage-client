@@ -100,7 +100,7 @@ function BookingHistory() {
       setBookings(updatedBookings); // Update the state with the filtered bookings array
 
       // Show an alert to notify the user that the booking was cancelled
-      toast.info("Booking cancelled");
+      toast.success("Booking cancelled.");
     } catch (error) {
       console.error("Error deleting booking:", error);
     }

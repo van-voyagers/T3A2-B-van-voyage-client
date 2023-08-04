@@ -48,7 +48,7 @@ const ReviewCarousel = () => {
 
   return (
     <div className="text-center">
-      <h2 className="text-sm lg:text-xl text-voyage-black font-mono my-6 sm:my-8">
+      <h2 className="text-sm lg:text-xl text-voyage-black font-mono py-8 my-4 sm:my-8">
         REVIEWS
       </h2>
       {loading ? (
@@ -97,7 +97,7 @@ const ReviewCarousel = () => {
                 return (
                   <div
                     key={review._id}
-                    className="text-voyage-black font-mono text-sm lg:text-lg px-16"
+                    className="text-voyage-black font-mono text-sm lg:text-lg px-16 mb-4"
                   >
                     <h3 className="mb-2">{review.booking.user.firstName}</h3>
                     <p className="mb-2 overflow-hidden break-words">
